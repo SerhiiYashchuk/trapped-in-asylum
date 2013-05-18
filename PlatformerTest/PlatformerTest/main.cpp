@@ -112,18 +112,18 @@ int IndieLib() {
 	//chm.time.Start();
 
 	//------------------Background music-------------
-	/*
+	
 	sf::Music music;
 	sf::Music pandoraMusic;
 	
 	if (!pandoraMusic.openFromFile("..\\res\\Music\\background\\pandora.ogg")) return 3;
 	if (!music.openFromFile("..\\res\\Music\\background\\back.ogg")) return 3;
 	
-	music.setVolume	(50);
+	music.setVolume	(70);
 	music.play		();
 	music.setLoop	(true);
 
-	pandoraMusic.setVolume(30);
+	pandoraMusic.setVolume(100);
 	pandoraMusic.setLoop(true);
 	pandoraMusic.play();
 	
@@ -134,13 +134,14 @@ int IndieLib() {
 	if (!scream.SetSound("..\\res\\Music\\scream\\scream.ogg"))	return 3;
 	if (!footstep.SetSound("..\\res\\Music\\step\\step.ogg"))	return 3;
 
-
+	scream.SetVolume(100);
+	footstep.SetVolume(100);
 
 	chm.get_hero().	SetScreamSound	(&scream);
 	chm.get_hero().	SetFootstepSound(&footstep);
 	chm.get_hero().	GetFootstepSound()->SetLoop(true);
 	chm.get_hero(). GetFootstepSound()->SetSpeed(2);
-	*/
+	
 	//----------
 
 	while (!engine->Input->Quit() && !engine->Input->OnKeyPress(IND_ESCAPE)) {
@@ -209,8 +210,6 @@ int IndieLib() {
 
 	//r_timer.Stop();
 	//chm.time.Stop();
-	//music.stop();
-	//pandoraMusic.stop();
 	engine->End();
 
 	return 0;
