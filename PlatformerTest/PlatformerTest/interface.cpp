@@ -75,35 +75,42 @@ void info::add_text(int num) {
 // Constructor
 
 Message_Box::Message_Box() {
-	CIndieLib::Instance()->Entity2dManager->Add(&this->entity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
+	strcpy(dir_path,"..\\res\\notebook\\");
 }
 
-void Message_Box::StartGameNotes() {
-	CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\notebook\\notebook_first.png", IND_OPAQUE, IND_32);
-	this->entity.SetSurface(&this->surface);
-	this->entity.SetPosition((float)CIndieLib::Instance()->Window->GetWidth()/2-(float)this->entity.GetSurface()->GetWidth()/2, (float)CIndieLib::Instance()->Window->GetHeight()/2-(float)this->entity.GetSurface()->GetHeight()/2, 0);
+
+int Message_Box::SetImage(char *name) {
+	strcat(dir_path,name);
+
+	if (!surface.IsHaveSurface())
+		CIndieLib::Instance()->SurfaceManager->Delete(&this->surface);
+	else {
+		CIndieLib::Instance()->SurfaceManager->Add(&this->surface, dir_path, IND_ALPHA, IND_32);
+		this->entity.SetSurface(&this->surface);
+		this->entity.SetPosition((float)CIndieLib::Instance()->Window->GetWidth()/2 - (float)this->entity.GetSurface()->GetWidth()/2, (float)CIndieLib::Instance()->Window->GetHeight()/2+(float)this->entity.GetSurface()->GetHeight()/2, 5);
+	}
+
+	strcpy(dir_path, "..\\res\\notebook\\");
+	
+	if(this->surface.IsHaveSurface())
+		return 1;
+	return 0;
 }
 
-void Message_Box::FindKeyNotes() {
-	CIndieLib::Instance()->SurfaceManager->Delete(&this->surface);
-	CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\notebook\\notebook_key_first.png", IND_OPAQUE, IND_32);
-	this->entity.SetSurface(&this->surface);
-	this->entity.SetPosition((float)CIndieLib::Instance()->Window->GetWidth()/2 - (float)this->entity.GetSurface()->GetWidth()/2, (float)CIndieLib::Instance()->Window->GetHeight()/2-(float)this->entity.GetSurface()->GetHeight()/2, 0);
-}
-
-void Message_Box::Show(bool flag) {
+void Message_Box::ShowMessageBox(bool flag) {
 	this->entity.SetShow(flag);
 }
 
 //----------ProgressBar----------
 
 ProgressBar::ProgressBar(){
-	CIndieLib::Instance()->Entity2dManager->Add(&this->entity);
-	CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress bar\\progress_bar_fear.png", IND_OPAQUE, IND_32);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
+	CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress bar\\progress_bar_fear.png", IND_ALPHA, IND_32);
 	this->entity.SetSurface(&this->surface);
 	this->entity.SetPosition(10,10,0);
-	CIndieLib::Instance()->Entity2dManager->Add(&this->eBar);
-	CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress bar\\gradient.png", IND_OPAQUE, IND_32);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->eBar);
+	CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress bar\\gradient.png", IND_ALPHA, IND_32);
 	this->eBar.SetSurface(&this->sBar);
 	this->eBar.SetPosition(12,12,0);
 }

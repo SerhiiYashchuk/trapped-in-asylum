@@ -38,3 +38,16 @@
 *.dll
 *.lib
 *.obj
+
+# Resources
+
+*.rar
+*.txt
+*.xml
+*.bat
+*.png
+*.jpg
+*.gif
+*.mp3
+*.ogg
+*.psd

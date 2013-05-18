@@ -142,7 +142,14 @@ int IndieLib() {
 	chm.get_hero().	GetFootstepSound()->SetLoop(true);
 	chm.get_hero(). GetFootstepSound()->SetSpeed(2);
 	
-	//----------
+	//---------------MessaGe Box----------------------
+
+	Message_Box messageBox;
+
+	if(!messageBox.SetImage("notebook_first.png")) return 3;
+
+	messageBox.ShowMessageBox(false);
+	//------------------------------------------------
 
 	while (!engine->Input->Quit() && !engine->Input->OnKeyPress(IND_ESCAPE)) {
 

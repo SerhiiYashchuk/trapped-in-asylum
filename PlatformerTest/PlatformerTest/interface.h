@@ -11,11 +11,11 @@ class Message_Box {
 private:
 	IND_Entity2d entity;
 	IND_Surface surface;
+	char dir_path[50];
 public:
 	Message_Box();
-	void StartGameNotes();
-	void FindKeyNotes();
-	void Show(bool flag);
+	int SetImage(char *name);
+	void ShowMessageBox(bool flag);
 };
 
 //----------ProgressBar class----------
@@ -38,8 +38,6 @@ class info {
 	
 	IND_Entity2d entity;
 	char *text;
-	//Message_Box messageBox;
-	//ProgressBar progressBar;
 
 public:
 	info() : text(0) {CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);};
@@ -56,8 +54,6 @@ public:
 	void add_text(const char *text);
 	void add_text(int num);
 	const char *get_text() {return this->text;};
-	//Message_Box *GetMessageBox() {return &this->messageBox;}
-	//ProgressBar *GetProgressBar() {return &this->progressBar;}
 };
 
 #endif
