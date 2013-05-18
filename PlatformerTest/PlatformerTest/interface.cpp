@@ -118,4 +118,5 @@ ProgressBar::ProgressBar(){
 void ProgressBar::SetValue(float fear){
 	if (fear < 2) return;
 	this->eBar.SetScale(fear/2, 1.0);
+	//5555555555555555
 }
