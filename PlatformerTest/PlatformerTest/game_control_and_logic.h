@@ -440,11 +440,12 @@ namespace game_logic {
 				}
 				char_info.current_room =							current_door->paired->ID;
 				char_info._char->get_entity().SetShow(true);
-				for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).floor.size(); i++)
+				for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).floor.size(); i++) {
 					if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "feet", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
 						char_info.current_floor =					lm.get_room(char_info.current_room - 1).floor[i];
 						break;
 					}
+				}
 
 			} else {
 				distance.x -=										speed.x * df;

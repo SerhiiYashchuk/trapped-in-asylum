@@ -100,7 +100,7 @@ void main_hero::set_max_calmdown(int max_calmdowm) {
 	if (max_calmdown < 0)
 		this->max_calmdown =				0;
 	else if (max_calmdown > this->max_fear)
-		this->max_calmdown =				this->max_fear;
+		this->max_calmdown =				(int) this->max_fear;
 	else
 		this->max_calmdown =				max_calmdown;
 }
@@ -115,6 +115,7 @@ void main_hero::reset_stats() {
 	this->fear =							0;
 	this->max_fear =						characters::main_hero_max_fear;
 	this->calmdown_speed =					characters::main_hero_calmdown_speed;
+	this->max_calmdown =					0;
 	this->calmdown_time =					characters::main_hero_calmdown_time;
 	this->calmdown_timer =					0;
 	this->scream_skill->deactivate();
