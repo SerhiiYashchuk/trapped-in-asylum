@@ -66,6 +66,7 @@ class main_hero : virtual public character {
 	IND_Timer time;
 	unsigned char calmdown_time;
 	float calmdown_speed;
+	int max_calmdown;
 	unsigned int calmdown_timer;
 
 	skill *scream_skill;
@@ -81,6 +82,7 @@ public:
 		max_fear(characters::main_hero_max_fear),
 		calmdown_time(characters::main_hero_calmdown_time),
 		calmdown_speed(characters::main_hero_calmdown_speed),
+		max_calmdown(0),
 		calmdown_timer(0) {
 			this->scream_skill = new skill(characters::main_hero_skill_duration);
 			this->set_speed(characters::main_hero_speed);
@@ -100,13 +102,16 @@ public:
 	void set_calmdown_speed(float fear_per_second) {this->calmdown_speed = fear_per_second;};
 	float get_calmdown_speed() {return this->calmdown_speed;};
 
+	void set_max_calmdown(int max_calmdown);
+	int get_max_calmdown() {return this->max_calmdown;};
+
 	void calmdown();
 	void scream() {this->scream_skill->activate();};
 	bool is_screaming() {this->scream_skill->update(); return this->scream_skill->is_active();};
 
 	void reset_stats();
 
-	void SetScreamSound(sSound *scream) {this->scream_sound = scream; this->scream_sound->SetVolume(100);}				//add
+	void SetScreamSound(sSound *scream) {this->scream_sound = scream; this->scream_sound->SetVolume(100);}
 	sSound *GetScreamSound(){return this->scream_sound;}
 
 	void SetFootstepSound(sSound *footstep) {this->footstep_sound = footstep;}

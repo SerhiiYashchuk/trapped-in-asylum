@@ -77,14 +77,32 @@ void main_hero::change_fear(float fear_ch) {
 // Try to calm down
 
 void main_hero::calmdown() {
-	if (this->fear && this->time.GetTicks() / 1000 > this->calmdown_time) {
+	static bool change_max_calmdown =		true;
+	
+	if (this->fear && this->fear > this->max_calmdown && this->time.GetTicks() / 1000 > this->calmdown_time) {
+		if (change_max_calmdown) {
+			this->max_calmdown +=			(int) (this->fear - this->max_calmdown) / 2;
+			change_max_calmdown =			false;
+		}
+
 		if (!this->calmdown_timer)
 			this->calmdown_timer =			this->time.GetTicks();
 		if ((this->time.GetTicks() - this->calmdown_timer) / 1000 == 1) {
 			this->change_fear(-this->calmdown_speed);
 			this->calmdown_timer =			0;
 		}
-	}
+	} else change_max_calmdown =			true;
+}
+
+// Set min fear that can be reached while calmdown is active
+
+void main_hero::set_max_calmdown(int max_calmdowm) {
+	if (max_calmdown < 0)
+		this->max_calmdown =				0;
+	else if (max_calmdown > this->max_fear)
+		this->max_calmdown =				this->max_fear;
+	else
+		this->max_calmdown =				max_calmdown;
 }
 
 // Reset all stats

@@ -17,6 +17,7 @@ const char exit_door_keyword[] =			"door_0";
 const char item_key[] =						"key";
 const char item_valeriana[] =				"valeriana";
 const char item_candle[] =					"candle";
+const float valeriana_fear_reduce =			40.0f;
 
 //-------------------------Room class------------------------
 

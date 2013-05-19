@@ -214,10 +214,10 @@ namespace game_logic {
 			chm.get_hero().GetFootstepSound()->	stop	();
 			float x = chm.get_hero().get_entity().GetPosX();
 			float y = chm.get_hero().get_entity().GetPosY();
-			float z = chm.get_hero().get_entity().GetPosZ();
+			int z = chm.get_hero().get_entity().GetPosZ();
 			chm.get_hero().set_aMoveLeft_Right_Stay(chm.get_hero().GetScreamAnimation());
-			chm.get_hero().get_entity().SetPosition(x, y, z);						//add
-			chm.get_hero().get_entity().SetHotSpot(0.5f,0.5f);					//add
+			chm.get_hero().get_entity().SetPosition(x, y, z);
+			chm.get_hero().get_entity().SetHotSpot(0.5f,0.5f);
 			chm.get_hero().get_entity().SetNumReplays(1);
 
 			for (unsigned short i = 0; i < chm.get_mob_count(); i++)
@@ -441,7 +441,7 @@ namespace game_logic {
 				char_info.current_room =							current_door->paired->ID;
 				char_info._char->get_entity().SetShow(true);
 				for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).floor.size(); i++)
-					if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "act_radius", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
+					if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "feet", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
 						char_info.current_floor =					lm.get_room(char_info.current_room - 1).floor[i];
 						break;
 					}
@@ -647,6 +647,11 @@ namespace game_logic {
 			if (lm.get_item(i) && CIndieLib::Instance()->Entity2dManager->IsCollision(&hero.get_entity(), "act_radius", &lm.get_item(i)->get_entity(), "*")) {
 				if (lm.get_item(i)->get_name() == item_key)
 					lm.set_key_need(false);
+
+				else if (lm.get_item(i)->get_name() == item_valeriana) {
+					hero.set_max_calmdown(hero.get_max_calmdown() - (int) valeriana_fear_reduce);
+					hero.change_fear(valeriana_fear_reduce);
+				}
 
 				if (lm.get_item(i)->get_name() != item_candle)
 					lm.delete_item(i);
