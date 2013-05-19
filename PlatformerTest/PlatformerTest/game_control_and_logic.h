@@ -13,7 +13,7 @@ namespace game_control {
 	unsigned char current_level =							0;
 
 	bool show_bareas =										false;
-	bool free_control =										true;
+	bool free_control =										false;
 
 	vector2d direction_v;
 
@@ -172,7 +172,7 @@ namespace game_control {
 				chm.get_hero().reset_stats();
 				
 				game_logic::put_character(chm.get_info((unsigned short) 0), lm.get_start_room());
-				spawn_mobs(lm, chm, game_logic::random, 15);
+				spawn_mobs(lm, chm, game_logic::every_room, 2);
 				++current_level;
 			}
 			catch (game_logic::spawn_error) {
@@ -441,7 +441,7 @@ namespace game_logic {
 				char_info.current_room =							current_door->paired->ID;
 				char_info._char->get_entity().SetShow(true);
 				for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).floor.size(); i++)
-					if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "feet", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
+					if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "act_radius", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
 						char_info.current_floor =					lm.get_room(char_info.current_room - 1).floor[i];
 						break;
 					}
@@ -571,7 +571,7 @@ namespace game_logic {
 			case every_room:
 				{
 					for (unsigned short i = 0; i < lm.get_rooms_count(); i++) {
-						if (lm.get_room(i).doors.size() < 2) continue;
+						if (lm.get_room(i).doors.size() < 2 || &lm.get_room(i) == &lm.get_start_room() || &lm.get_room(i) == &lm.get_finish_room()) continue;
 						for (unsigned short k = 0; k < amount; k++) {
 							chm.add_mob();
 							chinfo &mob_info =						chm.get_info(chm.get_info_count() - 1);
