@@ -297,14 +297,22 @@ namespace game_logic {
 		} else {
 		*/
 		// Checking wall collision
-		for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).walls.size() && !char_info.lcollision && !char_info.rcollision; i++) {
-			if (char_info.direction.x == 1)
-				char_info.rcollision =								CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "rside",
-				lm.get_room(char_info.current_room - 1).walls[i], "*");
-			else
-				char_info.lcollision =								CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "lside",
-				lm.get_room(char_info.current_room - 1).walls[i], "*");
-		}
+		if (char_info.direction.x)
+			for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).walls.size(); i++) {
+				if (char_info.direction.x > 0)
+					char_info.rcollision =							CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "rside",
+					lm.get_room(char_info.current_room - 1).walls[i], "*");
+
+				else if (dynamic_cast<main_hero *> (char_info._char)) // Should be removed when mobs will have animation
+					char_info.lcollision =							CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "rside",
+					lm.get_room(char_info.current_room - 1).walls[i], "*");
+
+				else // Should be removed when mobs will have animation
+					char_info.lcollision =							CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "lside",
+					lm.get_room(char_info.current_room - 1).walls[i], "*");
+
+				if (char_info.lcollision || char_info.rcollision) break;
+			}
 
 		char_info.possible_floor =									0;
 
@@ -350,11 +358,11 @@ namespace game_logic {
 		if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYLEFT) && char_info.current_floor && !char_info.lcollision &&
 			hero.get_position().x > lm.get_tl_point().x + level_border) {
 
-				if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYLEFT)){		//add
-					hero.set_aMoveLeft_Right_Stay	(hero.get_aMoveLeft_Right());	//add
-					hero.get_entity().SetMirrorX	(true);							//add
-					hero.get_entity().SetHotSpot	(0.5f,0.5f);					//add
-					hero.GetFootstepSound()->play	();								//add
+				if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYLEFT)){
+					hero.set_aMoveLeft_Right_Stay	(hero.get_aMoveLeft_Right());
+					hero.get_entity().SetMirrorX	(true);
+					hero.get_entity().SetHotSpot	(0.5f,0.5f);
+					hero.GetFootstepSound()->play	();
 				}
 
 				hero.set_state(go);
@@ -374,9 +382,9 @@ namespace game_logic {
 		if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYRIGHT) && char_info.current_floor && !char_info.rcollision &&
 			hero.get_position().x < lm.get_br_point().x - level_border) {
 
-				if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYRIGHT)){	//add
-					hero.set_aMoveLeft_Right_Stay	(hero.get_aMoveLeft_Right());	//add
-					hero.get_entity().SetHotSpot	(0.5f,0.5f);					//add
+				if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYRIGHT)){
+					hero.set_aMoveLeft_Right_Stay	(hero.get_aMoveLeft_Right());
+					hero.get_entity().SetHotSpot	(0.5f,0.5f);
 					hero.GetFootstepSound()->play	();
 				}
 
@@ -401,17 +409,17 @@ namespace game_logic {
 
 		// Staying
 
-		if (!CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYRIGHT) && !CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYLEFT)	//add
-			&& hero.dRoute != stay && hero.get_state() != on_stairs) {					//add
-				float x = hero.get_entity().	GetPosX							();										//add
-				float y = hero.get_entity().	GetPosY							();										//add
-				int z = hero.get_entity().		GetPosZ							();										//add
-				hero.							set_aMoveLeft_Right_Stay		(hero.get_aStay());						//add
-				hero.get_entity().				SetPosition						(x,y,z);								//add
-				hero.get_entity().				SetHotSpot						(0.5f,0.5f);							//add
-				hero.set_state													(stay);									//add
-				hero.dRoute =					stay;																	//add
-				hero.GetFootstepSound()->		stop							();										//add
+		if (!CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYRIGHT) && !CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYLEFT)
+			&& hero.dRoute != stay && hero.get_state() != on_stairs) {
+				float x = hero.get_entity().	GetPosX							();
+				float y = hero.get_entity().	GetPosY							();
+				int z = hero.get_entity().		GetPosZ							();
+				hero.							set_aMoveLeft_Right_Stay		(hero.get_aStay());
+				hero.get_entity().				SetPosition						(x,y,z);
+				hero.get_entity().				SetHotSpot						(0.5f,0.5f);
+				hero.set_state													(stay);
+				hero.dRoute =					stay;
+				hero.GetFootstepSound()->		stop							();
 		}
 
 	}
