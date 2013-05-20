@@ -135,6 +135,8 @@ int IndieLib() {
 	//-------------ProgressBar------------------------
 	ProgressBar progressBar;
 
+	if (!progressBar.load()) return 3;
+
 	progressBar.SetFont(font);
 
 	//--------------MessageBox------------------------
@@ -143,7 +145,7 @@ int IndieLib() {
 	set.set_texture_dir(PathToMessageBoxImage);
 	if (!set.load()) return 3;
 
-	Message_Box messageBox;
+	Message_Box messageBox(camera);
 
 	messageBox.SetTexture_set(set);
 

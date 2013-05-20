@@ -104,17 +104,19 @@ void Message_Box::ShowMessageBox(bool flag) {
 
 ProgressBar::ProgressBar(){
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
-	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress_bar\\progress_bar_fear.png", IND_ALPHA, IND_32)) return;
-
-	this->entity.SetSurface(&this->surface);
-
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->eBar);
-	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress_bar\\gradient.png", IND_ALPHA, IND_32)) return;
-
-	this->eBar.SetSurface(&this->sBar);
-
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->text);
 
+}
+
+int ProgressBar::load(){
+	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress_bar\\progress_bar_fear.png", IND_ALPHA, IND_32)) return 0;
+	this->entity.SetSurface(&this->surface);
+
+	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress_bar\\gradient.png", IND_ALPHA, IND_32)) return 0;
+	this->eBar.SetSurface(&this->sBar);
+
+	return 1;
 }
 
 void ProgressBar::SetValue(float fear){

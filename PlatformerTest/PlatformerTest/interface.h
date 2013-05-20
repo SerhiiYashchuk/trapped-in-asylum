@@ -37,6 +37,7 @@ public:
 	void SetFont(IND_Font &font);
 	void SetValue(float fear);
 	void SetPosition(float x, float y);
+	int load();
 };
 
 //------------------------Info class-------------------------
