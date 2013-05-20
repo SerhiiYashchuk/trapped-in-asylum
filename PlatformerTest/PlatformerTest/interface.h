@@ -2,20 +2,24 @@
 #define INTERFACE_H
 
 #include "CIndieLib_vc2008.h"
-
+#include "tiles.h"
 const unsigned char interface_layer =				5;
+const char PathToMessageBoxImage[] = "..\\res\\notebook";
 
 //----------MessageBox class----------
 
 class Message_Box {
 private:
+	texture_set *set;
 	IND_Entity2d entity;
 	IND_Surface surface;
 	char dir_path[50];
+	IND_Camera2d *camera;
 public:
-	Message_Box();
+	Message_Box(IND_Camera2d &camera);
 	int SetImage(char *name);
 	void ShowMessageBox(bool flag);
+	void SetTexture_set(texture_set &texture) {this->set = &texture;}
 };
 
 //----------ProgressBar class----------

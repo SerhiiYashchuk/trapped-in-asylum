@@ -76,24 +76,19 @@ void info::add_text(int num) {
 
 // Constructor
 
-Message_Box::Message_Box() {
+Message_Box::Message_Box(IND_Camera2d &camera) {
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
-	strcpy(dir_path,"..\\res\\notebook\\");
+	this->camera = &camera;
 }
 
 
 int Message_Box::SetImage(char *name) {
-	strcat(dir_path,name);
 
-	if (!surface.IsHaveSurface())
-		CIndieLib::Instance()->SurfaceManager->Delete(&this->surface);
+	if (!surface.IsHaveSurface()) return 0;
 	else {
-		CIndieLib::Instance()->SurfaceManager->Add(&this->surface, dir_path, IND_ALPHA, IND_32);
-		this->entity.SetSurface(&this->surface);
-		this->entity.SetPosition((float)CIndieLib::Instance()->Window->GetWidth()/2 - (float)this->entity.GetSurface()->GetWidth()/2, (float)CIndieLib::Instance()->Window->GetHeight()/2+(float)this->entity.GetSurface()->GetHeight()/2, 5);
+		this->entity.SetSurface(set->get_texture(name));
+		this->entity.SetHotSpot(0.5f,0.5f);
 	}
-
-	strcpy(dir_path, "..\\res\\notebook\\");
 	
 	if(this->surface.IsHaveSurface())
 		return 1;
@@ -102,6 +97,7 @@ int Message_Box::SetImage(char *name) {
 
 void Message_Box::ShowMessageBox(bool flag) {
 	this->entity.SetShow(flag);
+	this->entity.SetPosition(camera->GetPosX(), camera->GetPosY(), interface_layer);
 }
 
 //----------ProgressBar----------
