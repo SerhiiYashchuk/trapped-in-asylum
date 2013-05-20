@@ -115,7 +115,7 @@ namespace game_control {
 	}
 
 	void update_ingame_interface(int tl_x, int tl_y, ProgressBar progressBar) {
-		progressBar.SetPosition(tl_x +20, tl_y+20);
+		progressBar.SetPosition((float) (tl_x +20), (float) (tl_y+20));
 	}
 
 	//-----------------------Play game------------------------
@@ -213,7 +213,7 @@ namespace game_logic {
 		chm.get_hero().calmdown();
 		
 		// Scream
-		if (CIndieLib::Instance()->Input->IsKeyPressed(IND_SPACE) && !chm.get_hero().is_screaming()) {
+		if (!chm.get_hero().is_screaming() && CIndieLib::Instance()->Input->IsKeyPressed(IND_SPACE)) {
 			chm.get_hero().scream();
 			chm.get_hero().GetScreamSound()	->	play	();
 			chm.get_hero().GetFootstepSound()->	stop	();

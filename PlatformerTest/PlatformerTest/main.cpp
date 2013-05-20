@@ -165,7 +165,7 @@ int IndieLib() {
 
 		case play_game:
 			play(lm, chm, camera);
-			progressBar.SetPosition(camera.GetPosX() +40 - engine->Window->GetWidth() / 2, camera.GetPosY() +10 - engine->Window->GetHeight() / 2);
+			progressBar.SetPosition((float) (camera.GetPosX() +40 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +10 - engine->Window->GetHeight() / 2));
 			break;
 		case change_level:
 			complete_level(lm);
