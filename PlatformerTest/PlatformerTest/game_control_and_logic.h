@@ -21,6 +21,7 @@ namespace game_control {
 
 	void update_camera(IND_Camera2d &cam, IND_Point pos, IND_Point tl_point, IND_Point br_point, int width, int height);
 	void update_ingame_interface(int tl_x, int tl_y, main_hero &hero, info &hero_info);
+	void update_ingame_interface(int tl_x, int tl_y, ProgressBar progressBar);
 
 	void play(level_manager &lm, chmanager &chm, IND_Camera2d &camera);
 	void complete_level(level_manager &lm);
@@ -111,6 +112,10 @@ namespace game_control {
 		hero_info.set_position(tl_x + game_logic::level_border, tl_y + game_logic::level_border);
 		//hero_info.add_text("\nTimer: ");
 		//hero_info.add_text(chm.time.GetTicks() / 1000);
+	}
+
+	void update_ingame_interface(int tl_x, int tl_y, ProgressBar progressBar) {
+		progressBar.SetPosition(tl_x +20, tl_y+20);
 	}
 
 	//-----------------------Play game------------------------

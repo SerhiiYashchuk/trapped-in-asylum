@@ -106,18 +106,42 @@ void Message_Box::ShowMessageBox(bool flag) {
 
 ProgressBar::ProgressBar(){
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
-	CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress bar\\progress_bar_fear.png", IND_ALPHA, IND_32);
+	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress_bar\\progress_bar_fear.png", IND_ALPHA, IND_32)) return;
+
 	this->entity.SetSurface(&this->surface);
-	this->entity.SetPosition(10,10,0);
+
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->eBar);
-	CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress bar\\gradient.png", IND_ALPHA, IND_32);
+	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress_bar\\gradient.png", IND_ALPHA, IND_32)) return;
+
 	this->eBar.SetSurface(&this->sBar);
-	this->eBar.SetPosition(12,12,0);
+
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->text);
+
 }
 
 void ProgressBar::SetValue(float fear){
+	if (fear == 0) 
+		this->eBar.SetShow(false);
+
 	if (fear < 2) return;
+	this->eBar.SetShow(true);
 	this->eBar.SetScale(fear/2, 1.0);
-	//5555555555555555
-	//55555555
 }
+
+void ProgressBar::SetPosition (float x, float y) {
+	this->entity.SetPosition(x, y, 0);
+	this->eBar.SetPosition(x+2, y+2, 0);
+
+	this->text.SetPosition(x-40, y-8, 1);
+	
+}
+
+void ProgressBar::SetFont (IND_Font &font) {
+	this->small_text = font;
+	this->text.SetFont(&font);
+	this->text.SetShow(true);
+	this->text.SetAlign(IND_LEFT);
+	this->text.SetCharSpacing(-8);
+	this->text.SetTint(255,0,0);
+	this->text.SetText("Fear ");
+} 

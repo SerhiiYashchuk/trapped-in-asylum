@@ -88,16 +88,6 @@ int IndieLib() {
 	}
 	*/
 
-	//----------------------Info--------------------
-
-	info hero_info;
-
-	hero_info.set_font(font, 255, 0, 0);
-	hero_info.set_font_params();
-	hero_info.set_text("Fear: ");
-	hero_info.add_text((int) chm.get_hero().get_fear());
-	hero_info.set_position(lm.get_tl_point().x + level_border, lm.get_tl_point().y + level_border, 0);
-
 	//--------------------Camera--------------------
 	
 	IND_Camera2d camera(0, 0);
@@ -141,16 +131,11 @@ int IndieLib() {
 	chm.get_hero().	SetFootstepSound(&footstep);
 	chm.get_hero().	GetFootstepSound()->SetLoop(true);
 	chm.get_hero(). GetFootstepSound()->SetSpeed(2);
-	
-	//---------------MessaGe Box----------------------
 
-	Message_Box messageBox;
+	//-------------ProgressBar------------------------
+	ProgressBar progressBar;
 
-	if(!messageBox.SetImage("notebook_first.png")) return 3;
-
-	messageBox.ShowMessageBox(false);
-	//------------------------------------------------
-
+	progressBar.SetFont(font);
 	while (!engine->Input->Quit() && !engine->Input->OnKeyPress(IND_ESCAPE)) {
 
 		ticks =								r_timer.GetTicks();
@@ -165,7 +150,7 @@ int IndieLib() {
 
 		case play_game:
 			play(lm, chm, camera);
-			update_ingame_interface(camera.GetPosX() - engine->Window->GetWidth() / 2, camera.GetPosY() - engine->Window->GetHeight() / 2, chm.get_hero(), hero_info);
+			progressBar.SetPosition(camera.GetPosX() +40 - engine->Window->GetWidth() / 2, camera.GetPosY() +10 - engine->Window->GetHeight() / 2);
 			break;
 		case change_level:
 			complete_level(lm);
@@ -181,6 +166,8 @@ int IndieLib() {
 			return 0;
 			break;
 		}
+		
+		progressBar.SetValue(chm.get_hero().get_fear());
 
 		// Viewport & camera
 		engine->Render->ClearViewPort(0, 0, 0);
@@ -209,6 +196,7 @@ int IndieLib() {
 			df =							engine->Render->GetFrameTime() / 1000.0f;
 			engine->Render->ShowFpsInWindowTitle();
 
+			
 		//}
 
 	}
