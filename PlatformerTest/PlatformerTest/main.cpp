@@ -136,6 +136,19 @@ int IndieLib() {
 	ProgressBar progressBar;
 
 	progressBar.SetFont(font);
+
+	//--------------MessageBox------------------------
+	texture_set set;
+
+	set.set_texture_dir(PathToMessageBoxImage);
+	if (!set.load()) return 3;
+
+	Message_Box messageBox(camera);
+
+	messageBox.SetTexture_set(set);
+
+	//------------------------------------------------
+
 	while (!engine->Input->Quit() && !engine->Input->OnKeyPress(IND_ESCAPE)) {
 
 		ticks =								r_timer.GetTicks();
