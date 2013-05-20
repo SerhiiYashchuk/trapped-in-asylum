@@ -26,9 +26,13 @@ private:
 	IND_Surface surface;
 	IND_Entity2d eBar;
 	IND_Surface sBar;
+	IND_Font small_text;
+	IND_Entity2d text;
 public:
 	ProgressBar();
+	void SetFont(IND_Font &font);
 	void SetValue(float fear);
+	void SetPosition(float x, float y);
 };
 
 //------------------------Info class-------------------------
