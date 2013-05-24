@@ -117,8 +117,7 @@ int IndieLib() {
 
 	lt_manager ltm;
 	try {
-		//if (!ltm.load_textures("..\\textures")) throw tm_init_fail();
-		if (!ltm.load_textures("E:\\Documents\\Projects\\C++\\IndieLib\\PlatformerTest\\textures")) throw tm_init_fail();
+		if (!ltm.load_textures("..\\textures")) throw tm_init_fail();
 	}
 	catch (tm_init_fail) {
 		prog->End();
