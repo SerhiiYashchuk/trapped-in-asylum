@@ -357,8 +357,9 @@ int IndieLib() {
 			prog->Entity2dManager->RenderEntities2d(objects_layer);
 			prog->Entity2dManager->RenderEntities2d(items_layer);
 			if (show_b_areas) {
+				prog->Entity2dManager->RenderCollisionAreas(background_layer, 0, 0, 255, 255);
 				prog->Entity2dManager->RenderCollisionAreas(objects_layer, 255, 0, 0, 255);
-				prog->Entity2dManager->RenderCollisionAreas(items_layer, 0, 0, 255, 255);
+				prog->Entity2dManager->RenderCollisionAreas(items_layer, 0, 255, 0, 255);
 			}
 			
 			prog->Render->SetCamera2d(&bcam);
