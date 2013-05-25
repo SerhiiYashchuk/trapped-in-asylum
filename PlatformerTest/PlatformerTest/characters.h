@@ -9,6 +9,10 @@ enum chstate {stay, shocked, go, on_stairs, atack};
 enum Direction{right = 1 , left = -1};
 
 //--------------------------Constants--------------------------
+
+const unsigned char mobs_layer =								3;
+const unsigned char hero_layer =								4;
+
 namespace characters {
 	const unsigned short main_hero_speed =						200;
 	const float main_hero_max_fear =							200.0f;

@@ -31,19 +31,19 @@ void character::move(vector2d distance_v) {
 	this->position.x +=						distance_v.x;
 	this->position.y +=						distance_v.y;
 
-	this->entity.SetPosition(this->position.x, this->position.y, 1);
+	this->entity.SetPosition(this->position.x, this->position.y, this->entity.GetPosZ());
 }
 
 // Set specified animations
 
-void character::set_animation(IND_Animation &animationMove, IND_Animation &animationStop){		//add
+void character::set_animation(IND_Animation &animationMove, IND_Animation &animationStop){
 	this->aMove = animationMove;
 	this->aStop = animationStop;
 }
 
 // Set movement animation
 
-void character::set_aMoveLeft_Right_Stay(IND_Animation &animation){									//add
+void character::set_aMoveLeft_Right_Stay(IND_Animation &animation){
 	this->entity.SetAnimation(&animation);
 }
 
@@ -193,9 +193,7 @@ void mob::scare(main_hero &hero) {
 
 chmanager::chmanager() {
 	this->info.push_back(chinfo(&this->hero));
-	CIndieLib::Instance()->Entity2dManager->Add(3, &this->hero.get_entity());
-
-	this->hero.get_entity().SetPosition(0, 0, 1);
+	CIndieLib::Instance()->Entity2dManager->Add(4, &this->hero.get_entity());
 }
 
 // Destructor
