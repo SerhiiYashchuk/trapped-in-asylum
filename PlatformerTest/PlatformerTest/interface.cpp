@@ -153,7 +153,7 @@ void ProgressBar::Show(bool flag) {
 
 unsigned int main_page::load(){
 	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->main_pageSurface,"..\\res\\main_page\\mp.jpg", IND_ALPHA, IND_32))	return 0;
-	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->eyesSurace,"..\\res\\main_page\\peyes.png", IND_ALPHA, IND_32))		return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->eyesSurface,"..\\res\\main_page\\peyes.png", IND_ALPHA, IND_32))		return 0;
 	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\main_page\\aplay.png", IND_ALPHA, IND_32))	return 0;
 	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\main_page\\nquit.png", IND_ALPHA, IND_32))	return 0;
 
@@ -163,7 +163,7 @@ unsigned int main_page::load(){
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->quitEntity);
 
 	this	->	main_pageEntity	.	SetSurface (&this->main_pageSurface);
-	this	->	eyesEntity		.	SetSurface (&this->eyesSurace);
+	this	->	eyesEntity		.	SetSurface (&this->eyesSurface);
 	this	->	playEntity		.	SetSurface (&this->playSurface);
 	this	->	quitEntity		.	SetSurface (&this->quitSurface);
 
@@ -211,6 +211,17 @@ void main_page::SetActivePlay () {
 
 	this->quitEntity.SetPosition(x, y, interface_layer);	
 
+	x = this->eyesEntity.GetPosX();
+	y = this->eyesEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->eyesSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->eyesSurface, "..\\res\\main_page\\peyes.png", IND_ALPHA, IND_32)) return;
+	this->eyesEntity.SetSurface(&this->eyesSurface);
+
+	this->eyesEntity.SetHotSpot(0.5f, 0.5f);
+
+	this->eyesEntity.SetPosition(x, y, interface_layer);
+	
 	this->active = true;
 }
 void main_page::SetActiveQuit () {
@@ -237,6 +248,17 @@ void main_page::SetActiveQuit () {
 	this->quitEntity.SetHotSpot(0.5f,0.5f);
 
 	this->quitEntity.SetPosition(x, y, interface_layer);
+
+	x = this->eyesEntity.GetPosX();
+	y = this->eyesEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->eyesSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->eyesSurface, "..\\res\\main_page\\qeyes.png", IND_ALPHA, IND_32)) return;
+	this->eyesEntity.SetSurface(&this->eyesSurface);
+
+	this->eyesEntity.SetHotSpot(0.5f, 0.5f);
+
+	this->eyesEntity.SetPosition(x, y, interface_layer);
 
 	this->active = false;
 }

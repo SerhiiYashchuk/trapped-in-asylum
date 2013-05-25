@@ -69,7 +69,7 @@ public:
 //---------------------------Main_Page---------------------------
 
 class main_page {
-	IND_Surface eyesSurace;
+	IND_Surface eyesSurface;
 	IND_Entity2d eyesEntity;
 
 	IND_Surface main_pageSurface;

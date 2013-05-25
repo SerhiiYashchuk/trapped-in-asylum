@@ -106,7 +106,6 @@ int IndieLib() {
 	if (!music.openFromFile("..\\res\\Music\\background\\back.ogg")) return 3;
 	
 	music.setVolume	(70);
-	music.play		();
 	music.setLoop	(true);
 
 	pandoraMusic.setVolume(100);
@@ -171,6 +170,7 @@ int IndieLib() {
 		case show_menu:
 			main_page_interface(MainPage);
 			progressBar.Show(false);
+			if (gstate == change_level) music.play ();
 			break;
 		case play_game:
 			play(lm, chm, camera);
@@ -208,7 +208,8 @@ int IndieLib() {
 			engine->Entity2dManager->RenderEntities2d(background_layer);
 			engine->Entity2dManager->RenderEntities2d(objects_layer);
 			engine->Entity2dManager->RenderEntities2d(items_layer);
-			engine->Entity2dManager->RenderEntities2d(3);
+			engine->Entity2dManager->RenderEntities2d(mobs_layer);
+			engine->Entity2dManager->RenderEntities2d(hero_layer);
 			}
 			engine->Entity2dManager->RenderEntities2d(interface_layer);
 
