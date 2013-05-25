@@ -193,7 +193,9 @@ void mob::scare(main_hero &hero) {
 
 chmanager::chmanager() {
 	this->info.push_back(chinfo(&this->hero));
-	CIndieLib::Instance()->Entity2dManager->Add(2, &this->hero.get_entity());
+	CIndieLib::Instance()->Entity2dManager->Add(3, &this->hero.get_entity());
+
+	this->hero.get_entity().SetPosition(0, 0, 1);
 }
 
 // Destructor
@@ -219,7 +221,7 @@ void chmanager::del_info(character *_char) {
 void chmanager::add_npc() {
 	npc *new_npc =							new npc;
 	
-	CIndieLib::Instance()->Entity2dManager->Add(2, &new_npc->get_entity());
+	CIndieLib::Instance()->Entity2dManager->Add(3, &new_npc->get_entity());
 	new_npc->set_surface(*this->skin[0]);
 	this->npc_set.push_back(new_npc);
 	this->info.push_back(chinfo(new_npc));
@@ -240,7 +242,7 @@ void chmanager::del_npc(unsigned short pos) {
 void chmanager::add_mob() {
 	mob *new_mob =							new mob;
 
-	CIndieLib::Instance()->Entity2dManager->Add(2, &new_mob->get_entity());
+	CIndieLib::Instance()->Entity2dManager->Add(3, &new_mob->get_entity());
 	new_mob->set_surface(*this->skin[0]);
 	this->mob_set.push_back(new_mob);
 	this->info.push_back(chinfo(new_mob));
