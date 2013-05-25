@@ -38,6 +38,7 @@ public:
 	void SetValue(float fear);
 	void SetPosition(float x, float y);
 	int load();
+	void Show (bool flag);
 };
 
 //------------------------Info class-------------------------
@@ -63,6 +64,33 @@ public:
 	void add_text(const char *text);
 	void add_text(int num);
 	const char *get_text() {return this->text;};
+};
+
+//---------------------------Main_Page---------------------------
+
+class main_page {
+	IND_Surface eyesSurace;
+	IND_Entity2d eyesEntity;
+
+	IND_Surface main_pageSurface;
+	IND_Entity2d main_pageEntity;
+
+	IND_Surface playSurface;
+	IND_Entity2d playEntity;
+
+	IND_Surface quitSurface;
+	IND_Entity2d quitEntity;
+
+	bool active;
+public:
+	unsigned int load();
+	void SetEyesPosition(float x, float y);
+	void SetPlayPosition(float x, float y);
+	void SetQuitPosition(float x, float y);
+	void SetActivePlay ();
+	void SetActiveQuit ();
+	bool PlayActive ();
+	void Show (bool flag);
 };
 
 #endif

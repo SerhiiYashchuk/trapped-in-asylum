@@ -145,3 +145,107 @@ void ProgressBar::SetFont (IND_Font &font) {
 	this->text.SetTint(255,0,0);
 	this->text.SetText("Fear ");
 } 
+
+void ProgressBar::Show(bool flag) {
+	this->eBar.SetShow(flag);
+}
+//----------------------------main page-------------------
+
+unsigned int main_page::load(){
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->main_pageSurface,"..\\res\\main_page\\mp.jpg", IND_ALPHA, IND_32))	return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->eyesSurace,"..\\res\\main_page\\peyes.png", IND_ALPHA, IND_32))		return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\main_page\\aplay.png", IND_ALPHA, IND_32))	return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\main_page\\nquit.png", IND_ALPHA, IND_32))	return 0;
+
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->main_pageEntity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->playEntity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->eyesEntity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->quitEntity);
+
+	this	->	main_pageEntity	.	SetSurface (&this->main_pageSurface);
+	this	->	eyesEntity		.	SetSurface (&this->eyesSurace);
+	this	->	playEntity		.	SetSurface (&this->playSurface);
+	this	->	quitEntity		.	SetSurface (&this->quitSurface);
+
+	this	->	main_pageEntity	.	SetHotSpot (0.5f,0.5f);
+	this	->	playEntity		.	SetHotSpot (0.5f,0.5f);
+	this	->	eyesEntity		.	SetHotSpot (0.5f,0.5f);
+	this	->	quitEntity		.	SetHotSpot (0.5f,0.5f);
+	this	->	main_pageEntity .	SetPosition(0,0,interface_layer);
+
+	this->active = true;
+	return 1;
+}
+
+void main_page::SetEyesPosition (float x, float y){
+	this->eyesEntity.SetPosition(x, y, interface_layer);
+}
+void main_page::SetPlayPosition (float x, float y){
+	this->playEntity.SetPosition(x, y, interface_layer);
+}
+void main_page::SetQuitPosition (float x, float y) {
+	this->quitEntity.SetPosition(x, y, interface_layer);
+} 
+void main_page::SetActivePlay () {
+	float x, y;
+
+	x = this->playEntity.GetPosX();
+	y = this->playEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->playSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\main_page\\aplay.png", IND_ALPHA, IND_32)) return;
+	this->playEntity.SetSurface(&this->playSurface);
+
+	this->playEntity.SetHotSpot(0.5f,0.5f);
+
+	this->playEntity.SetPosition(x, y, interface_layer);
+
+	x = this->quitEntity.GetPosX();
+	y = this->quitEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->quitSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\main_page\\nquit.png", IND_ALPHA, IND_32)) return;
+	this->quitEntity.SetSurface(&this->quitSurface);
+
+	this->quitEntity.SetHotSpot(0.5f,0.5f);
+
+	this->quitEntity.SetPosition(x, y, interface_layer);	
+
+	this->active = true;
+}
+void main_page::SetActiveQuit () {
+	float x, y;
+
+	x = this->playEntity.GetPosX();
+	y = this->playEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->playSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\main_page\\nplay.png", IND_ALPHA, IND_32)) return;
+	this->playEntity.SetSurface(&this->playSurface);
+
+	this->playEntity.SetHotSpot(0.5f,0.5f);
+
+	this->playEntity.SetPosition(x, y, interface_layer);
+
+	x = this->quitEntity.GetPosX();
+	y = this->quitEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->quitSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\main_page\\aquit.png", IND_ALPHA, IND_32)) return;
+	this->quitEntity.SetSurface(&this->quitSurface);
+
+	this->quitEntity.SetHotSpot(0.5f,0.5f);
+
+	this->quitEntity.SetPosition(x, y, interface_layer);
+
+	this->active = false;
+}
+bool main_page::PlayActive () {
+	return active;
+}
+void main_page::Show (bool flag) {
+	this->main_pageEntity.SetShow(flag);
+	this->eyesEntity.SetShow(flag);
+	this->playEntity.SetShow(flag);
+	this->quitEntity.SetShow(flag);
+}
