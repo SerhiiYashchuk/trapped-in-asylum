@@ -9,7 +9,7 @@
 namespace game_control {
 	enum game_state {show_menu, play_game, change_level, quit};
 
-	game_state gstate =										play_game;
+	game_state gstate =										show_menu;
 	unsigned char current_level =							0;
 
 	bool show_bareas =										false;
@@ -22,6 +22,7 @@ namespace game_control {
 	void update_camera(IND_Camera2d &cam, IND_Point pos, IND_Point tl_point, IND_Point br_point, int width, int height);
 	void update_ingame_interface(int tl_x, int tl_y, main_hero &hero, info &hero_info);
 	void update_ingame_interface(int tl_x, int tl_y, ProgressBar progressBar);
+	void main_page_interface(main_page &MainPage);
 
 	void play(level_manager &lm, chmanager &chm, IND_Camera2d &camera);
 	void complete_level(level_manager &lm);
@@ -184,6 +185,25 @@ namespace game_control {
 				gstate =												quit;
 			}
 		}
+	}
+
+	//--------------------main page control-------------------------------
+
+	void main_page_interface (main_page &MainPage) {
+		if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYUP))
+			MainPage.SetActivePlay();
+
+		if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYDOWN))
+			MainPage.SetActiveQuit();
+
+		if (MainPage.PlayActive() && CIndieLib::Instance()->Input->OnKeyPress(IND_RETURN)){
+			gstate =													change_level;
+			MainPage.Show(false);
+		}
+
+		if (!MainPage.PlayActive() && CIndieLib::Instance()->Input->OnKeyPress(IND_RETURN))
+			gstate =													quit;
+			
 	}
 }
 

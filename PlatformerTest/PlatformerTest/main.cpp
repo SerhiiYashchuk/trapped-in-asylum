@@ -92,10 +92,6 @@ int IndieLib() {
 	
 	IND_Camera2d camera(0, 0);
 
-	// Start game
-
-	gstate =								change_level;
-
 	//-------------------Main loop------------------
 
 	//r_timer.Start();
@@ -138,6 +134,7 @@ int IndieLib() {
 	if (!progressBar.load()) return 3;
 
 	progressBar.SetFont(font);
+	progressBar.Show(false);
 
 	//--------------MessageBox------------------------
 	texture_set set;
@@ -151,6 +148,18 @@ int IndieLib() {
 
 	//------------------------------------------------
 
+	//-----------------Main menu----------------------
+
+	main_page MainPage;
+
+	if (!MainPage.load()) return 3;
+
+	MainPage.SetEyesPosition(-80,-100);
+	MainPage.SetPlayPosition(300,150);
+	MainPage.SetQuitPosition(300,200);
+
+	//-------------------------------------------------
+	//gstate = show_menu;
 	while (!engine->Input->Quit() && !engine->Input->OnKeyPress(IND_ESCAPE)) {
 
 		ticks =								r_timer.GetTicks();
@@ -160,12 +169,14 @@ int IndieLib() {
 
 		switch (gstate) {
 		case show_menu:
-
+			main_page_interface(MainPage);
+			progressBar.Show(false);
 			break;
-
 		case play_game:
 			play(lm, chm, camera);
 			progressBar.SetPosition((float) (camera.GetPosX() +40 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +10 - engine->Window->GetHeight() / 2));
+			progressBar.Show(true);
+			progressBar.SetValue(chm.get_hero().get_fear());
 			break;
 		case change_level:
 			complete_level(lm);
@@ -182,7 +193,7 @@ int IndieLib() {
 			break;
 		}
 		
-		progressBar.SetValue(chm.get_hero().get_fear());
+		
 
 		// Viewport & camera
 		engine->Render->ClearViewPort(0, 0, 0);
@@ -193,10 +204,12 @@ int IndieLib() {
 		//if (ticks > last_frame + 1000 / FPS) {
 			engine->Render->BeginScene();
 
+			if (gstate == play_game) {
 			engine->Entity2dManager->RenderEntities2d(background_layer);
 			engine->Entity2dManager->RenderEntities2d(objects_layer);
 			engine->Entity2dManager->RenderEntities2d(items_layer);
 			engine->Entity2dManager->RenderEntities2d(3);
+			}
 			engine->Entity2dManager->RenderEntities2d(interface_layer);
 
 			if (game_control::show_bareas) {
