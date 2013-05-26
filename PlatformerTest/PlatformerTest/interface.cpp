@@ -76,28 +76,50 @@ void info::add_text(int num) {
 
 // Constructor
 
-Message_Box::Message_Box(IND_Camera2d &camera) {
+MessageBox::MessageBox() {
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
-	this->camera = &camera;
+	this->entity.SetShow(false);
 }
 
+// Set message image
 
-int Message_Box::SetImage(char *name) {
+void MessageBox::SetImage(IND_Surface &image) {
+	this->entity.SetSurface(&image);
+	this->entity.SetHotSpot(0.5f, 0.5f);
+}
 
-	if (!surface.IsHaveSurface()) return 0;
-	else {
-		this->entity.SetSurface(set->get_texture(name));
-		this->entity.SetHotSpot(0.5f,0.5f);
+// Show message
+
+void MessageBox::Show(int pos_x, int pos_y) {
+	this->entity.SetPosition((float) pos_x, (float) pos_y, this->entity.GetPosZ());
+	this->entity.SetShow(true);
+	this->entity.SetTransparency(0);
+}
+
+//----------Quick MessageBox class---------
+
+// Show message
+
+void QMessageBox::Show(int pos_x, int pos_y) {
+	MessageBox::Show(pos_x, pos_y);
+	this->time.Start();
+}
+
+// Update
+
+void QMessageBox::Update(int pos_x, int pos_y) {
+	if (this->time.GetTicks() / 1000 >= this->show_time && this->entity.GetTransparency()) {
+		this->entity.SetTransparency(this->entity.GetTransparency() - 5);
+	} else if (this->entity.GetTransparency() < 255) {
+		this->entity.SetTransparency(this->entity.GetTransparency() + 5);
 	}
-	
-	if(this->surface.IsHaveSurface())
-		return 1;
-	return 0;
-}
 
-void Message_Box::ShowMessageBox(bool flag) {
-	this->entity.SetShow(flag);
-	this->entity.SetPosition((float) camera->GetPosX(), (float) camera->GetPosY(), interface_layer);
+	if (!this->entity.GetTransparency()) {
+		this->time.Stop();
+		this->entity.SetShow(false);
+	}
+
+	this->entity.SetPosition((float) pos_x, (float) pos_y, this->entity.GetPosZ());
 }
 
 //----------ProgressBar----------

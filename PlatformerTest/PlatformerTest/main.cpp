@@ -149,14 +149,12 @@ int IndieLib() {
 	scream_bar.SetMaxValue(characters::main_hero_scream_limit * characters::main_hero_scream_energy);
 
 	//--------------MessageBox------------------------
-	texture_set set;
+	texture_set message_set;
 
-	set.set_texture_dir(PathToMessageBoxImage);
-	if (!set.load()) return 3;
+	message_set.set_texture_dir(messages_directory);
+	if (!message_set.load()) return 3;
 
-	Message_Box messageBox(camera);
-
-	messageBox.SetTexture_set(set);
+	QMessageBox item_message;
 
 	//------------------------------------------------
 
@@ -220,6 +218,17 @@ int IndieLib() {
 			scream_bar.SetPosition((float) (camera.GetPosX() + engine->Window->GetWidth() / 2 - 240), (float) (camera.GetPosY() - engine->Window->GetHeight() / 2 + 10));
 			scream_bar.Show(true);
 			scream_bar.SetValue(chm.get_hero().get_scream_energy());
+
+			if (active_message.length()) {
+				IND_Surface *message_image =	message_set.get_texture((active_message + message_image_modifier).c_str());
+				if (message_image)
+					item_message.SetImage(*message_image);
+				item_message.Show(camera.GetPosX(), camera.GetPosY() - engine->Window->GetHeight() / 2 + 50);
+				active_message =				"";
+			}
+
+			if (item_message.IsShow())
+				item_message.Update(camera.GetPosX(), camera.GetPosY() - engine->Window->GetHeight() / 2 + 50);
 
 			break;
 

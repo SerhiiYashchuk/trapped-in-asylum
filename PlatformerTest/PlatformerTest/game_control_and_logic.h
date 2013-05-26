@@ -11,6 +11,7 @@ namespace game_control {
 
 	game_state gstate =										show_menu;
 	unsigned char current_level =							0;
+	string active_message =									"";
 
 	bool show_bareas =										false;
 	bool free_control =										false;
@@ -234,18 +235,15 @@ namespace game_logic {
 		chm.get_hero().calmdown();
 		
 		// Scream
-		if (!chm.get_hero().is_screaming() && CIndieLib::Instance()->Input->IsKeyPressed(IND_SPACE)) {
-			chm.get_hero().scream();
-			chm.get_hero().GetScreamSound()	->	play	();
-			chm.get_hero().GetFootstepSound()->	stop	();
-			float x = chm.get_hero().get_entity().GetPosX();
-			float y = chm.get_hero().get_entity().GetPosY();
-			int z = chm.get_hero().get_entity().GetPosZ();
-			chm.get_hero().set_aMoveLeft_Right_Stay(chm.get_hero().GetScreamAnimation());
-			chm.get_hero().get_entity().SetPosition(x, y, z);
-			chm.get_hero().get_entity().SetHotSpot(0.5f,0.5f);
-			chm.get_hero().get_entity().SetNumReplays(1);
-
+		if (!chm.get_hero().is_screaming()) {
+			if (CIndieLib::Instance()->Input->OnKeyPress(IND_SPACE)) {
+				chm.get_hero().scream();
+				if (chm.get_hero().is_screaming()) {
+					chm.get_hero().GetScreamSound()	->	play	();
+					chm.get_hero().GetFootstepSound()->	stop	();
+				}
+			}
+		} else {
 			for (unsigned short i = 0; i < chm.get_mob_count(); i++)
 				if (chm.get_info((unsigned short) 0).current_room == chm.get_info(&chm.get_mob(i)).current_room)
 					chm.get_mob(i).set_state(shocked);
@@ -375,9 +373,8 @@ namespace game_logic {
 	void hero_movement(level_manager &lm, main_hero &hero, chinfo &char_info) {
 		float df =													CIndieLib::Instance()->Render->GetFrameTime() / 1000.0f;
 
-		if ((CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYLEFT) || CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYRIGHT)		//add
-		|| CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYUP)) && hero.GetScreamSound()->GetStatus() == sf::Sound::Status::Playing)	//add
-		hero.GetScreamSound()->stop();
+		if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYUP))
+			hero.GetScreamSound()->stop();
 
 		if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYLEFT) && char_info.current_floor && !char_info.lcollision &&
 			hero.get_position().x > lm.get_tl_point().x + level_border) {
@@ -533,7 +530,20 @@ namespace game_logic {
 	void put_character(chinfo &char_info, room &dest_room) {
 		char_info.current_room =									dest_room.ID;
 		while (!char_info.current_floor) {
-			char_info.current_floor =								dest_room.floor[(unsigned short) CIndieLib::Instance()->Math->Rand(0, dest_room.floor.size() - 1)];
+			if (dynamic_cast<main_hero *> (char_info._char)) {
+				for (unsigned short i = 0; i < dest_room.doors.size(); i++) {
+					if (dest_room.doors[i]->paired) continue;
+					for (unsigned short j = 0; j < dest_room.floor.size(); j++) {
+						if (CIndieLib::Instance()->Entity2dManager->IsCollision(dest_room.doors[i]->entity, "*", dest_room.floor[j]->entity, "*")) {
+							char_info.current_floor =				dest_room.floor[j];
+							break;
+						}
+					}
+					break;
+				}
+			} else
+				char_info.current_floor =							dest_room.floor[(unsigned short) CIndieLib::Instance()->Math->Rand(0, dest_room.floor.size() - 1)];
+			
 			for (unsigned short i = 0; i < dest_room.walls.size(); i++)
 				if (CIndieLib::Instance()->Entity2dManager->IsCollision(char_info.current_floor->entity, "*", dest_room.walls[i], "*") && char_info.current_floor->near_floor.size() != 1) {
 					char_info.current_floor =						0;
@@ -699,6 +709,8 @@ namespace game_logic {
 	void check_items(level_manager &lm, main_hero &hero) {
 		for (unsigned short i = 0; i < lm.get_items_count(); i++) {
 			if (lm.get_item(i) && CIndieLib::Instance()->Entity2dManager->IsCollision(&hero.get_entity(), "act_radius", &lm.get_item(i)->get_entity(), "*")) {
+				game_control::active_message =						lm.get_item(i)->get_name();
+				
 				if (lm.get_item(i)->get_name() == item_key)
 					lm.set_key_need(false);
 
