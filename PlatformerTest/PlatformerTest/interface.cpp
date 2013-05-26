@@ -97,7 +97,7 @@ int Message_Box::SetImage(char *name) {
 
 void Message_Box::ShowMessageBox(bool flag) {
 	this->entity.SetShow(flag);
-	this->entity.SetPosition(camera->GetPosX(), camera->GetPosY(), interface_layer);
+	this->entity.SetPosition((float) camera->GetPosX(), (float) camera->GetPosY(), interface_layer);
 }
 
 //----------ProgressBar----------
@@ -108,7 +108,7 @@ ProgressBar::ProgressBar(){
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->text);
 
 	this->value = 0;
-	this->max_value = 200;
+	this->max_value = 0;
 }
 /*
 int ProgressBar::load(){
@@ -128,7 +128,9 @@ void ProgressBar::SetValue(float value){
 		this->filler.SetShow(false);
 
 	this->filler.SetShow(true);
-	this->filler.SetScale(this->value / this->max_value, 1.0);
+	if (this->max_value)
+		this->filler.SetScale(this->value / this->max_value, 1.0);
+	else this->filler.SetScale(0, 1.0f);
 }
 
 void ProgressBar::SetPosition (float x, float y) {

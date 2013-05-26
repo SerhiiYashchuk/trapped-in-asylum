@@ -43,6 +43,8 @@ public:
 	void SetFiller(IND_Surface &filler) {this->filler.SetSurface(&filler);};
 	void SetValue(float fear);
 	float GetValue() {return this->value;};
+	void SetMaxValue(float max_value) {this->max_value = max_value;};
+	float GetMaxValue() {return this->max_value;};
 	void SetPosition(float x, float y);
 	//int load();
 	void Show (bool flag);

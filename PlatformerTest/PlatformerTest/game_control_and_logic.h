@@ -111,8 +111,6 @@ namespace game_control {
 		hero_info.set_text("Fear: ");
 		hero_info.add_text((int) hero.get_fear());
 		hero_info.set_position(tl_x + game_logic::level_border, tl_y + game_logic::level_border);
-		//hero_info.add_text("\nTimer: ");
-		//hero_info.add_text(chm.time.GetTicks() / 1000);
 	}
 
 	void update_ingame_interface(int tl_x, int tl_y, ProgressBar progressBar) {
@@ -130,29 +128,7 @@ namespace game_control {
 		if (CIndieLib::Instance()->Input->OnKeyPress(IND_F))
 			free_control =												!free_control;
 
-		if (free_control) {
-			/*
-			direction_v.x =												0;
-			direction_v.y =												0;
-
-			if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYUP))
-				direction_v.y =											-1;
-
-			if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYDOWN))
-				direction_v.y =											1;
-
-			if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYLEFT))
-				direction_v.x =											-1;
-
-			if (CIndieLib::Instance()->Input->IsKeyPressed(IND_KEYRIGHT))
-				direction_v.x =											1;
-
-			chm.get_hero().move(direction_v * chm.get_hero().get_speed() * (CIndieLib::Instance()->Render->GetFrameTime() / 1000.0f));
-			//chm.get_info((unsigned short) 0).current_room =		0;
-			//chm.get_info((unsigned short) 0).current_floor =	0;
-			*/
-
-		} else game_logic::update_characters(chm, lm, CIndieLib::Instance()->Render->GetFrameTime() / 1000.0f);
+		else game_logic::update_characters(chm, lm, CIndieLib::Instance()->Render->GetFrameTime() / 1000.0f);
 
 		update_camera(camera, IND_Point((int) chm.get_hero().get_position().x, (int) chm.get_hero().get_position().y),
 			lm.get_tl_point(), lm.get_br_point(), CIndieLib::Instance()->Window->GetWidth(), CIndieLib::Instance()->Window->GetHeight());

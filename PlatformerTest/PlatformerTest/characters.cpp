@@ -62,9 +62,14 @@ void main_hero::change_fear(float fear_ch) {
 	if (fear_ch > 0) {
 		this->time.Stop();
 
-		if (this->fear + fear_ch < this->max_fear)
+		if (this->fear + fear_ch < this->max_fear) {
 			this->fear +=					fear_ch;
-		else this->fear =					this->max_fear;
+			this->scream_energy +=			fear_ch;
+		} else
+			this->fear =					this->max_fear;
+
+		if (this->scream_energy + fear_ch > this->max_fear)
+			this->scream_energy =			this->max_fear;
 
 		this->time.Start();
 	} else {
@@ -105,6 +110,15 @@ void main_hero::set_max_calmdown(int max_calmdowm) {
 		this->max_calmdown =				max_calmdown;
 }
 
+// Scream
+
+void main_hero::scream() {
+	if (this->scream_energy >= characters::main_hero_scream_limit) {
+		this->scream_skill->activate();
+		this->scream_energy -=				characters::main_hero_scream_limit;
+	}
+}
+
 // Reset all stats
 
 void main_hero::reset_stats() {
@@ -119,6 +133,7 @@ void main_hero::reset_stats() {
 	this->calmdown_time =					characters::main_hero_calmdown_time;
 	this->calmdown_timer =					0;
 	this->scream_skill->deactivate();
+	this->scream_energy =					0;
 }
 
 //--------------------------NPC class--------------------------

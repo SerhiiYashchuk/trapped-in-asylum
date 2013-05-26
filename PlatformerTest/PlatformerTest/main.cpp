@@ -34,6 +34,7 @@ int IndieLib() {
 	IND_Surface char_s;
 	IND_Surface npc_s;
 	IND_Surface pb_border;
+	IND_Surface pb_sborder;
 	IND_Surface pb_rfiller;
 	IND_Surface pb_bfiller;
 
@@ -48,6 +49,7 @@ int IndieLib() {
 	if (!engine->SurfaceManager->Add(&char_s, "..\\res\\character.png", IND_ALPHA, IND_32)) return 2;
 	if (!engine->SurfaceManager->Add(&npc_s, "..\\res\\character_1.png", IND_ALPHA, IND_32)) return 2;
 	if (!engine->SurfaceManager->Add(&pb_border, "..\\res\\progress_bar\\border.png", IND_ALPHA, IND_32)) return 2;
+	if (!engine->SurfaceManager->Add(&pb_sborder, "..\\res\\progress_bar\\separated_border.png", IND_ALPHA, IND_32)) return 2;
 	if (!engine->SurfaceManager->Add(&pb_rfiller, "..\\res\\progress_bar\\red_filler.png", IND_ALPHA, IND_32)) return 2;
 	if (!engine->SurfaceManager->Add(&pb_bfiller, "..\\res\\progress_bar\\blue_filler.png", IND_ALPHA, IND_32)) return 2;
 
@@ -136,13 +138,15 @@ int IndieLib() {
 	chm.get_hero(). GetFootstepSound()->SetSpeed(2);
 
 	//-------------ProgressBar------------------------
-	ProgressBar fear_bar;
+	ProgressBar fear_bar, scream_bar;
 
 	fear_bar.SetBorder(pb_border);
 	fear_bar.SetFiller(pb_rfiller);
+	fear_bar.SetMaxValue(characters::main_hero_max_fear);
 
-	//progressBar.SetFont(font);
-	//fear_bar.Show(false);
+	scream_bar.SetBorder(pb_sborder);
+	scream_bar.SetFiller(pb_bfiller);
+	scream_bar.SetMaxValue(characters::main_hero_max_fear);
 
 	//--------------MessageBox------------------------
 	texture_set set;
@@ -179,14 +183,22 @@ int IndieLib() {
 		case show_menu:
 			main_page_interface(MainPage);
 			fear_bar.Show(false);
+			scream_bar.Show(false);
 			if (gstate == change_level) music.play ();
 			break;
+
 		case play_game:
 			play(lm, chm, camera);
 			fear_bar.SetPosition((float) (camera.GetPosX() +40 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +10 - engine->Window->GetHeight() / 2));
 			fear_bar.Show(true);
 			fear_bar.SetValue(chm.get_hero().get_fear());
+
+			scream_bar.SetPosition((float) (camera.GetPosX() + engine->Window->GetWidth() / 2 - 240), (float) (camera.GetPosY() - engine->Window->GetHeight() / 2 + 10));
+			scream_bar.Show(true);
+			scream_bar.SetValue(chm.get_hero().get_scream_energy());
+
 			break;
+
 		case change_level:
 			complete_level(lm);
 			if (gstate == quit) break;

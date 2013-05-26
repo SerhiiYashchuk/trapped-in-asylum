@@ -19,6 +19,7 @@ namespace characters {
 	const unsigned char main_hero_calmdown_time =				7;
 	const float main_hero_calmdown_speed =						2.5f;
 	const unsigned char main_hero_skill_duration =				2;
+	const float main_hero_scream_limit =		 				66.5f;
 
 	const unsigned short mob_speed =							400;
 	const float mob_scare_speed =								5.0f;
@@ -74,6 +75,7 @@ class main_hero : virtual public character {
 	unsigned int calmdown_timer;
 
 	skill *scream_skill;
+	float scream_energy;
 
 	sSound *scream_sound;
 	sSound *footstep_sound;
@@ -87,7 +89,8 @@ public:
 		calmdown_time(characters::main_hero_calmdown_time),
 		calmdown_speed(characters::main_hero_calmdown_speed),
 		max_calmdown(0),
-		calmdown_timer(0) {
+		calmdown_timer(0),
+		scream_energy(0) {
 			this->scream_skill = new skill(characters::main_hero_skill_duration);
 			this->set_speed(characters::main_hero_speed);
 	};
@@ -110,8 +113,9 @@ public:
 	int get_max_calmdown() {return this->max_calmdown;};
 
 	void calmdown();
-	void scream() {this->scream_skill->activate();};
+	void scream();
 	bool is_screaming() {this->scream_skill->update(); return this->scream_skill->is_active();};
+	float get_scream_energy() {return this->scream_energy;};
 
 	void reset_stats();
 
