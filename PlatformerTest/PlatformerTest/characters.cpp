@@ -202,6 +202,10 @@ void mob::scare(main_hero &hero) {
 	}
 }
 
+void mob::set_animation() {
+	this->entity.SetAnimation(&this->aMove);
+}
+
 //---------------------Characters manager----------------------
 
 // Constructor
@@ -256,7 +260,7 @@ void chmanager::add_mob() {
 	mob *new_mob =							new mob;
 
 	CIndieLib::Instance()->Entity2dManager->Add(3, &new_mob->get_entity());
-	new_mob->set_surface(*this->skin[0]);
+	new_mob->set_animation();
 	this->mob_set.push_back(new_mob);
 	this->info.push_back(chinfo(new_mob));
 }

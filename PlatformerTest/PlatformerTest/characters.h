@@ -22,7 +22,7 @@ namespace characters {
 	const float main_hero_scream_energy =		 				60.0f;
 	const unsigned char main_hero_scream_limit =				3;
 
-	const unsigned short mob_speed =							400;
+	const unsigned short mob_speed =							170;
 	const float mob_scare_speed =								5.0f;
 }
 
@@ -163,11 +163,12 @@ public:
 		scare_timer(0) {
 			this->set_speed(characters::mob_speed);
 			this->time.Start();
+			CIndieLib::Instance()->AnimationManager->AddToSurface(&this->aMove, "..\\res\\animations\\mob\\move\\Move.xml", IND_ALPHA, IND_32);
 	};
 
 	void set_scare(float fear_per_second) {this->_scare = fear_per_second;};
 	float get_scare() {return this->_scare;};
-
+	void set_animation();
 	void scare(main_hero &hero);
 };
 

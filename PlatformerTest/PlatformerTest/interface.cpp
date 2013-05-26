@@ -373,7 +373,7 @@ void pause::SetmainPosition (float x, float y) {
 //-------------------------------game_over----------------------
 
 unsigned int Game_over::load () {
-	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->main_pageSurface,"..\\res\\pause\\main.png", IND_ALPHA, IND_32))	return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->main_pageSurface,"..\\res\\game_over\\main.png", IND_ALPHA, IND_32))	return 0;
 	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\game_over\\agame_over.png", IND_ALPHA, IND_32))	return 0;
 	
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->main_pageEntity);

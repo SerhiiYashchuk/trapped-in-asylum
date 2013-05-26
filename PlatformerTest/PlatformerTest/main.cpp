@@ -186,6 +186,8 @@ int IndieLib() {
 	Game_over Game_Over;
 	IND_Timer timer;
 	if (!Game_Over.load()) return 3;
+
+	Game_Over.Show(false);
 	//-----------------------------------------------
 	while (!engine->Input->Quit()) {
 

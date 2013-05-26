@@ -330,13 +330,10 @@ namespace game_logic {
 					char_info.rcollision =							CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "rside",
 					lm.get_room(char_info.current_room - 1).walls[i], "*");
 
-				else if (dynamic_cast<main_hero *> (char_info._char)) // Should be removed when mobs will have animation
+				else  
 					char_info.lcollision =							CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "rside",
 					lm.get_room(char_info.current_room - 1).walls[i], "*");
 
-				else // Should be removed when mobs will have animation
-					char_info.lcollision =							CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "lside",
-					lm.get_room(char_info.current_room - 1).walls[i], "*");
 
 				if (char_info.lcollision || char_info.rcollision) break;
 			}
@@ -575,8 +572,12 @@ namespace game_logic {
 						}
 
 						put_character(mob_info, *spawn_room);
-						if (!mob_info.direction.x)
+						if (!mob_info.direction.x){
 							mob_info.direction.x =					(CIndieLib::Instance()->Math->Rand(1, 10) % 2) ? (1.0f) : (-1.0f);
+						if (mob_info.direction.x > 0) chm.get_mob(chm.get_mob_count()-1).get_entity().SetMirrorX							(false);
+						if (mob_info.direction.x < 0) chm.get_mob(chm.get_mob_count()-1).get_entity().SetMirrorX							(true);
+						chm.get_mob(chm.get_mob_count()-1).get_entity().SetHotSpot(0.5f,0.5f);
+						}
 					}
 				}
 				break;
@@ -596,8 +597,13 @@ namespace game_logic {
 						chinfo &mob_info =							chm.get_info(chm.get_info_count() - 1);
 
 						put_character(mob_info, *spawn_room);
-						if (!mob_info.direction.x)
+						if (!mob_info.direction.x){
 							mob_info.direction.x =					(CIndieLib::Instance()->Math->Rand(1, 10) % 2) ? (1.0f) : (-1.0f);
+							if (mob_info.direction.x > 0) chm.get_mob(chm.get_mob_count()-1).get_entity().SetMirrorX							(false);
+							if (mob_info.direction.x < 0) chm.get_mob(chm.get_mob_count()-1).get_entity().SetMirrorX							(true);
+							chm.get_mob(chm.get_mob_count()-1).get_entity().SetHotSpot(0.5f,0.5f);
+						}
+
 					}
 				}
 				break;
@@ -611,8 +617,12 @@ namespace game_logic {
 							chinfo &mob_info =						chm.get_info(chm.get_info_count() - 1);
 
 							put_character(mob_info, lm.get_room(i));
-							if (!mob_info.direction.x)
+							if (!mob_info.direction.x){
 								mob_info.direction.x =				(CIndieLib::Instance()->Math->Rand(1, 10) % 2) ? (1.0f) : (-1.0f);
+								if (mob_info.direction.x > 0) chm.get_mob(chm.get_mob_count()-1).get_entity().SetMirrorX							(false);
+								if (mob_info.direction.x < 0) chm.get_mob(chm.get_mob_count()-1).get_entity().SetMirrorX							(true);
+								chm.get_mob(chm.get_mob_count()-1).get_entity().SetHotSpot(0.5f,0.5f);
+							}
 						}
 					}
 				}
@@ -642,6 +652,9 @@ namespace game_logic {
 
 		case atack:
 			mob_info.direction.x =									(mob_info._char->get_position().x < hero_info._char->get_position().x) ? (1.0f) : (-1.0f);
+			if (mob_info.direction.x > 0) Mob.get_entity().SetMirrorX							(false);
+			if (mob_info.direction.x < 0) Mob.get_entity().SetMirrorX							(true);
+			Mob.get_entity().SetHotSpot(0.5f,0.5f);
 			Mob.scare(hero);
 			//hero.change_fear(Mob.get_scare_speed() * 400 / abs(mob_info._char->get_position().x - hero_info._char->get_position().x));
 
@@ -650,7 +663,11 @@ namespace game_logic {
 			if (hero_info.current_room != mob_info.current_room) {
 				mob_info._char->set_state(go);
 				mob_info.direction.x =								(CIndieLib::Instance()->Math->Rand(1, 10) % 2) ? (1.0f) : (-1.0f);
+				if (mob_info.direction.x > 0) Mob.get_entity().SetMirrorX							(false);
+				if (mob_info.direction.x < 0) Mob.get_entity().SetMirrorX							(true);
+				Mob.get_entity().SetHotSpot(0.5f,0.5f);
 			}
+			
 
 		case go:
 			if (!mob_info.current_floor) break;
@@ -665,6 +682,9 @@ namespace game_logic {
 				mob_info.direction.x *=								-1;
 				mob_info.lcollision =								false;
 				mob_info.rcollision =								false;
+				if (mob_info.direction.x > 0) Mob.get_entity().SetMirrorX						(false);
+				if (mob_info.direction.x < 0) Mob.get_entity().SetMirrorX						(true);
+				Mob.get_entity().SetHotSpot(0.5f,0.5f);
 			}
 
 			mob_info._char->move(mob_info.current_floor->get_speed_vector(mob_info._char->get_speed()) * mob_info.direction * df);
