@@ -19,7 +19,8 @@ namespace characters {
 	const unsigned char main_hero_calmdown_time =				7;
 	const float main_hero_calmdown_speed =						2.5f;
 	const unsigned char main_hero_skill_duration =				2;
-	const float main_hero_scream_limit =		 				66.5f;
+	const float main_hero_scream_energy =		 				60.0f;
+	const unsigned char main_hero_scream_limit =				3;
 
 	const unsigned short mob_speed =							400;
 	const float mob_scare_speed =								5.0f;

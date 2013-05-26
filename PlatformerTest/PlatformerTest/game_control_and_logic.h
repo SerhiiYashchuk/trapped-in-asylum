@@ -27,6 +27,7 @@ namespace game_control {
 	void play(level_manager &lm, chmanager &chm, IND_Camera2d &camera);
 	void complete_level(level_manager &lm);
 	void load_level(level_manager &lm, chmanager &chm);
+	void game_over();
 }
 
 namespace game_logic {
@@ -181,6 +182,13 @@ namespace game_control {
 			gstate =													quit;
 			
 	}
+
+	//-------------------Game over--------------------
+
+	void game_over() {
+		gstate =														quit;
+		current_level--;
+	}
 }
 
 //-------------------------------------------------------GAME LOGIC-------------------------------------------------------
@@ -226,8 +234,9 @@ namespace game_logic {
 					chm.get_mob(i).set_state(shocked);
 		}
 
-		// Checking NPC
-		//check_npc_collision(em, chm);
+		// Checking fear level
+		if (chm.get_hero().get_fear() == chm.get_hero().get_max_fear())
+			game_control::game_over();
 
 		// Checking mobs
 		for (unsigned short i = 0; i < chm.get_mob_count(); i++) {
@@ -432,19 +441,25 @@ namespace game_logic {
 		static vector2d distance;
 		static vector2d speed;// =										vector2d((float) char_info._char->get_speed(), (float) char_info._char->get_speed());
 		static vector2d direction;
+		static unsigned char trys =									0;
 
 		if (char_info._char->get_state() == on_stairs) {
 			if (distance.x <= 0 && distance.y <= 0) {
 				if (char_info.current_floor) {
 					char_info._char->set_state(stay);
 					char_info._char->dRoute = 1;
-				}
-				char_info.current_room =							current_door->paired->ID;
-				char_info._char->get_entity().SetShow(true);
-				for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).floor.size(); i++) {
-					if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "feet", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
-						char_info.current_floor =					lm.get_room(char_info.current_room - 1).floor[i];
-						break;
+				} else {
+					if (trys > 2) char_info._char->move(vector2d(0, 0.5f));
+
+					char_info.current_room =							current_door->paired->ID;
+					char_info._char->get_entity().SetShow(true);
+					trys++;
+					for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).floor.size(); i++) {
+						if (CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "feet", lm.get_room(char_info.current_room - 1).floor[i]->entity, "*")) {
+							char_info.current_floor =					lm.get_room(char_info.current_room - 1).floor[i];
+							trys =										0;
+							break;
+						}
 					}
 				}
 

@@ -146,7 +146,7 @@ int IndieLib() {
 
 	scream_bar.SetBorder(pb_sborder);
 	scream_bar.SetFiller(pb_bfiller);
-	scream_bar.SetMaxValue(characters::main_hero_max_fear);
+	scream_bar.SetMaxValue(characters::main_hero_scream_limit * characters::main_hero_scream_energy);
 
 	//--------------MessageBox------------------------
 	texture_set set;
@@ -236,7 +236,8 @@ int IndieLib() {
 
 			if (game_control::show_bareas) {
 				engine->Entity2dManager->RenderCollisionAreas(objects_layer, 255, 0, 0, 255);
-				engine->Entity2dManager->RenderCollisionAreas(2, 0, 255, 0, 255);
+				engine->Entity2dManager->RenderCollisionAreas(items_layer, 0, 0, 255, 255);
+				engine->Entity2dManager->RenderCollisionAreas(hero_layer, 0, 255, 0, 255);
 			}
 
 			engine->Render->EndScene();

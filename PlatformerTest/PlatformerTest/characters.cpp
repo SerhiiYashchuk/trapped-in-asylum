@@ -113,9 +113,9 @@ void main_hero::set_max_calmdown(int max_calmdowm) {
 // Scream
 
 void main_hero::scream() {
-	if (this->scream_energy >= characters::main_hero_scream_limit) {
+	if (this->scream_energy >= characters::main_hero_scream_energy) {
 		this->scream_skill->activate();
-		this->scream_energy -=				characters::main_hero_scream_limit;
+		this->scream_energy -=				characters::main_hero_scream_energy;
 	}
 }
 
