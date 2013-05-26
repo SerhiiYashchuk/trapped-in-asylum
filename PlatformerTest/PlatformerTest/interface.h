@@ -3,23 +3,40 @@
 
 #include "CIndieLib_vc2008.h"
 #include "tiles.h"
+
 const unsigned char interface_layer =				5;
-const char PathToMessageBoxImage[] = "..\\res\\notebook";
+const char messages_directory[] =					"..\\res\\messages";
+const char message_image_modifier[] =				"_found.png";
 
 //----------MessageBox class----------
 
-class Message_Box {
-private:
-	texture_set *set;
+class MessageBox {
+protected:
 	IND_Entity2d entity;
-	IND_Surface surface;
-	char dir_path[50];
-	IND_Camera2d *camera;
+
 public:
-	Message_Box(IND_Camera2d &camera);
-	int SetImage(char *name);
-	void ShowMessageBox(bool flag);
-	void SetTexture_set(texture_set &texture) {this->set = &texture;}
+	MessageBox();
+	void SetImage(IND_Surface &image);
+	virtual void Show(int pos_x, int pos_y);
+
+	bool IsShow() {return this->entity.IsShow();};
+};
+
+//---------Quick MessageBox class---------
+
+class QMessageBox : virtual public MessageBox {
+	IND_Timer time;
+	unsigned char show_time;
+
+public:
+	QMessageBox() : show_time(4) {};
+
+	void SetTime(unsigned char seconds) {this->show_time = seconds;};
+	unsigned char GetTime() {return this->show_time;};
+
+	void Show(int pos_x, int pos_y);
+
+	void Update(int pos_x, int pos_y);
 };
 
 //----------ProgressBar class----------
