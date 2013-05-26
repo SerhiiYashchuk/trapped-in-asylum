@@ -26,18 +26,25 @@ public:
 
 class ProgressBar {
 private:
-	IND_Entity2d entity;
-	IND_Surface surface;
-	IND_Entity2d eBar;
-	IND_Surface sBar;
+	IND_Entity2d border;
+	//IND_Surface *bsurface;
+	IND_Entity2d filler;
+	//IND_Surface *fsurface;
 	IND_Font small_text;
 	IND_Entity2d text;
+
+	float value;
+	float max_value;
+
 public:
 	ProgressBar();
 	void SetFont(IND_Font &font);
+	void SetBorder(IND_Surface &border) {this->border.SetSurface(&border);};
+	void SetFiller(IND_Surface &filler) {this->filler.SetSurface(&filler);};
 	void SetValue(float fear);
+	float GetValue() {return this->value;};
 	void SetPosition(float x, float y);
-	int load();
+	//int load();
 	void Show (bool flag);
 };
 

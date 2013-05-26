@@ -33,6 +33,10 @@ int IndieLib() {
 	
 	IND_Surface char_s;
 	IND_Surface npc_s;
+	IND_Surface pb_border;
+	IND_Surface pb_rfiller;
+	IND_Surface pb_bfiller;
+
 	IND_Animation aMove;
 	IND_Animation aStop;
 	IND_Animation Scream;
@@ -40,8 +44,12 @@ int IndieLib() {
 	if (!engine->AnimationManager->AddToSurface(&aMove,"..\\res\\animations\\hero\\MoveRightVariant_4\\Move.xml", IND_ALPHA, IND_32)) return 2;
 	if (!engine->AnimationManager->AddToSurface(&Scream,"..\\res\\animations\\hero\\Scream\\Scream.xml", IND_ALPHA, IND_32)) return 2;
 	if (!engine->AnimationManager->AddToSurface(&aStop, "..\\res\\animations\\hero\\Stop\\Stop.xml", IND_ALPHA, IND_32)) return 2;
+
 	if (!engine->SurfaceManager->Add(&char_s, "..\\res\\character.png", IND_ALPHA, IND_32)) return 2;
 	if (!engine->SurfaceManager->Add(&npc_s, "..\\res\\character_1.png", IND_ALPHA, IND_32)) return 2;
+	if (!engine->SurfaceManager->Add(&pb_border, "..\\res\\progress_bar\\border.png", IND_ALPHA, IND_32)) return 2;
+	if (!engine->SurfaceManager->Add(&pb_rfiller, "..\\res\\progress_bar\\red_filler.png", IND_ALPHA, IND_32)) return 2;
+	if (!engine->SurfaceManager->Add(&pb_bfiller, "..\\res\\progress_bar\\blue_filler.png", IND_ALPHA, IND_32)) return 2;
 
 	IND_Font font;
 
@@ -128,12 +136,13 @@ int IndieLib() {
 	chm.get_hero(). GetFootstepSound()->SetSpeed(2);
 
 	//-------------ProgressBar------------------------
-	ProgressBar progressBar;
+	ProgressBar fear_bar;
 
-	if (!progressBar.load()) return 3;
+	fear_bar.SetBorder(pb_border);
+	fear_bar.SetFiller(pb_rfiller);
 
-	progressBar.SetFont(font);
-	progressBar.Show(false);
+	//progressBar.SetFont(font);
+	//fear_bar.Show(false);
 
 	//--------------MessageBox------------------------
 	texture_set set;
@@ -169,14 +178,14 @@ int IndieLib() {
 		switch (gstate) {
 		case show_menu:
 			main_page_interface(MainPage);
-			progressBar.Show(false);
+			fear_bar.Show(false);
 			if (gstate == change_level) music.play ();
 			break;
 		case play_game:
 			play(lm, chm, camera);
-			progressBar.SetPosition((float) (camera.GetPosX() +40 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +10 - engine->Window->GetHeight() / 2));
-			progressBar.Show(true);
-			progressBar.SetValue(chm.get_hero().get_fear());
+			fear_bar.SetPosition((float) (camera.GetPosX() +40 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +10 - engine->Window->GetHeight() / 2));
+			fear_bar.Show(true);
+			fear_bar.SetValue(chm.get_hero().get_fear());
 			break;
 		case change_level:
 			complete_level(lm);

@@ -103,12 +103,14 @@ void Message_Box::ShowMessageBox(bool flag) {
 //----------ProgressBar----------
 
 ProgressBar::ProgressBar(){
-	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->entity);
-	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->eBar);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->border);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->filler);
 	CIndieLib::Instance()->Entity2dManager->Add(interface_layer, &this->text);
 
+	this->value = 0;
+	this->max_value = 200;
 }
-
+/*
 int ProgressBar::load(){
 	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress_bar\\progress_bar_fear.png", IND_ALPHA, IND_32)) return 0;
 	this->entity.SetSurface(&this->surface);
@@ -118,19 +120,20 @@ int ProgressBar::load(){
 
 	return 1;
 }
+*/
+void ProgressBar::SetValue(float value){
+	this->value = (value < this->max_value) ? (value) : (this->max_value);
+	
+	if (this->value == 0) 
+		this->filler.SetShow(false);
 
-void ProgressBar::SetValue(float fear){
-	if (fear == 0) 
-		this->eBar.SetShow(false);
-
-	if (fear < 2) return;
-	this->eBar.SetShow(true);
-	this->eBar.SetScale(fear/2, 1.0);
+	this->filler.SetShow(true);
+	this->filler.SetScale(this->value / this->max_value, 1.0);
 }
 
 void ProgressBar::SetPosition (float x, float y) {
-	this->entity.SetPosition(x, y, 0);
-	this->eBar.SetPosition(x+2, y+2, 0);
+	this->border.SetPosition(x, y, 1);
+	this->filler.SetPosition(x+6, y+4, 0);
 
 	this->text.SetPosition(x-40, y-8, 1);
 	
@@ -147,7 +150,8 @@ void ProgressBar::SetFont (IND_Font &font) {
 } 
 
 void ProgressBar::Show(bool flag) {
-	this->eBar.SetShow(flag);
+	this->border.SetShow(flag);
+	this->filler.SetShow(flag);
 }
 //----------------------------main page-------------------
 
