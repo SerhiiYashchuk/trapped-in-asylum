@@ -78,9 +78,6 @@ public:
 	IND_Point get_tl_point() {return this->level_rect[0];};											// Returns top left point of the level. This is the edge of the level
 	IND_Point get_br_point() {return this->level_rect[1];};											// Returns bottom right point of the level. This is the edge of the level
 
-	//entity_vector *get_region(unsigned short rID);													// Returns region by it's ID. Returns NULL if there is no such region
-	//entity_vector *get_region(int x, int y);														// Returns region by point that belongs to it. Returns NULL if there is no such region
-
 	unsigned short get_rooms_count() {return this->rooms.size();};
 	room &get_room(unsigned short pos) {return *this->rooms[pos];};
 	room &get_start_room() {return *this->start_room;};

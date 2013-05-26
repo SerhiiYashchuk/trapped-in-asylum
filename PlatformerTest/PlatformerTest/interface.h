@@ -29,7 +29,7 @@ class QMessageBox : virtual public MessageBox {
 	unsigned char show_time;
 
 public:
-	QMessageBox() : show_time(4) {};
+	QMessageBox() : show_time(2) {};
 
 	void SetTime(unsigned char seconds) {this->show_time = seconds;};
 	unsigned char GetTime() {return this->show_time;};

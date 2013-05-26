@@ -109,9 +109,9 @@ void QMessageBox::Show(int pos_x, int pos_y) {
 
 void QMessageBox::Update(int pos_x, int pos_y) {
 	if (this->time.GetTicks() / 1000 >= this->show_time && this->entity.GetTransparency()) {
-		this->entity.SetTransparency(this->entity.GetTransparency() - 5);
-	} else if (this->entity.GetTransparency() < 255) {
-		this->entity.SetTransparency(this->entity.GetTransparency() + 5);
+		this->entity.SetTransparency(this->entity.GetTransparency() - 2);
+	} else if (this->entity.GetTransparency() < 254) {
+		this->entity.SetTransparency(this->entity.GetTransparency() + 2);
 	}
 
 	if (!this->entity.GetTransparency()) {
@@ -132,17 +132,7 @@ ProgressBar::ProgressBar(){
 	this->value = 0;
 	this->max_value = 0;
 }
-/*
-int ProgressBar::load(){
-	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->surface, "..\\res\\progress_bar\\progress_bar_fear.png", IND_ALPHA, IND_32)) return 0;
-	this->entity.SetSurface(&this->surface);
 
-	if(!CIndieLib::Instance()->SurfaceManager->Add(&this->sBar, "..\\res\\progress_bar\\gradient.png", IND_ALPHA, IND_32)) return 0;
-	this->eBar.SetSurface(&this->sBar);
-
-	return 1;
-}
-*/
 void ProgressBar::SetValue(float value){
 	this->value = (value < this->max_value) ? (value) : (this->max_value);
 	

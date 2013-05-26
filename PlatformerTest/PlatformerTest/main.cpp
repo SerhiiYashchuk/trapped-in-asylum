@@ -18,8 +18,6 @@ int IndieLib() {
 
 	const float no_angle =					360.0f;
 
-	const char floors_to_go[] =				"\nFloors to go: ";
-
 	//----------------Rendering timer---------------
 
 	IND_Timer r_timer;
@@ -76,36 +74,9 @@ int IndieLib() {
 	chm.get_hero().set_animation(aMove, aStop);
 	chm.get_hero().SetScreamAnimation(Scream);
 
-	//----------------------NPCs--------------------
-	/*
-	chm.add_npc();
-
-	engine->Entity2dManager->Add(2, &chm.get_npc(0).get_entity());
-	engine->Entity2dManager->Add(3, &chm.get_npc(0).get_text_entity());
-
-	chm.get_npc(0).set_surface(npc_s);
-	chm.get_npc(0).set_font(font);
-
-	chm.get_npc(0).add_phrase("Hi, dude!");
-
-	if (lm.get_rooms_count()) {
-		room *rand_room =					&lm.get_room((unsigned short) engine->Math->Rand(1, lm.get_rooms_count() - 2));
-		IND_Entity2d *rand_floor =			rand_room->floor[(unsigned short) engine->Math->Rand(0, rand_room->floor.size() - 1)]->entity;
-		chm.get_npc(0).move(vector2d(rand_floor->GetPosX(),
-			rand_floor->GetPosY() - rand_floor->GetSurface()->GetHeight() / 2 - chm.get_npc(0).get_entity().GetSurface()->GetHeight() / 2 + 5));
-		chm.get_info(1).current_room =		rand_room->ID;
-		chm.get_info(1).direction.x =		1;
-	}
-	*/
-
 	//--------------------Camera--------------------
 	
 	IND_Camera2d camera(0, 0);
-
-	//-------------------Main loop------------------
-
-	//r_timer.Start();
-	//chm.time.Start();
 
 	//------------------Background music-------------
 	
@@ -156,8 +127,6 @@ int IndieLib() {
 
 	QMessageBox item_message;
 
-	//------------------------------------------------
-
 	//-----------------Main menu----------------------
 
 	main_page MainPage;
@@ -168,8 +137,6 @@ int IndieLib() {
 	MainPage.SetPlayPosition(300,150);
 	MainPage.SetQuitPosition(300,200);
 
-	//-------------------------------------------------
-	//gstate = show_menu;
 	//------------------Pause-------------------------
 	pause Pause;
 
@@ -179,14 +146,17 @@ int IndieLib() {
 	Pause.SetQuitPosition(-100,-50);
 	Pause.SetmainPosition(0,0);
 	Pause.Show(false);
-	//------------------------------------------------
+	
 	//-------------------Game over-------------------
+
 	Game_over Game_Over;
 	IND_Timer timer;
 	if (!Game_Over.load()) return 3;
 
 	Game_Over.Show(false);
-	//-----------------------------------------------
+
+	//-------------------Main loop------------------
+
 	while (!engine->Input->Quit()) {
 
 		ticks =								r_timer.GetTicks();
@@ -267,48 +237,37 @@ int IndieLib() {
 			break;
 		}
 		
-		
-
 		// Viewport & camera
 		engine->Render->ClearViewPort(0, 0, 0);
 		engine->Render->SetViewPort2d(0, 0, engine->Window->GetWidth(), engine->Window->GetHeight());
 		engine->Render->SetCamera2d(&camera);
-		
-		// Rendering scene
-		//if (ticks > last_frame + 1000 / FPS) {
-			engine->Render->BeginScene();
 
-			if (gstate == play_game || gstate == pause_game || gstate == _game_over) {
+		// Rendering scene
+		engine->Render->BeginScene();
+
+		if (gstate == play_game || gstate == pause_game || gstate == _game_over) {
 			engine->Entity2dManager->RenderEntities2d(background_layer);
 			engine->Entity2dManager->RenderEntities2d(objects_layer);
 			engine->Entity2dManager->RenderEntities2d(items_layer);
 			engine->Entity2dManager->RenderEntities2d(mobs_layer);
 			engine->Entity2dManager->RenderEntities2d(hero_layer);
-			}
-			engine->Entity2dManager->RenderEntities2d(interface_layer);
+		}
+		engine->Entity2dManager->RenderEntities2d(interface_layer);
 
-			if (game_control::show_bareas) {
-				engine->Entity2dManager->RenderCollisionAreas(objects_layer, 255, 0, 0, 255);
-				engine->Entity2dManager->RenderCollisionAreas(items_layer, 0, 0, 255, 255);
-				engine->Entity2dManager->RenderCollisionAreas(hero_layer, 0, 255, 0, 255);
-			}
+		if (game_control::show_bareas) {
+			engine->Entity2dManager->RenderCollisionAreas(objects_layer, 255, 0, 0, 255);
+			engine->Entity2dManager->RenderCollisionAreas(items_layer, 0, 0, 255, 255);
+			engine->Entity2dManager->RenderCollisionAreas(hero_layer, 0, 255, 0, 255);
+		}
 
-			engine->Render->EndScene();
+		engine->Render->EndScene();
 
-			// Frame info
-			//last_frame =					ticks;
-			df =							engine->Render->GetFrameTime() / 1000.0f;
-			engine->Render->ShowFpsInWindowTitle();
-
-			
-		//}
-
+		df =							engine->Render->GetFrameTime() / 1000.0f;
+		engine->Render->ShowFpsInWindowTitle();
 	}
 
 	//---------------------End----------------------
 
-	//r_timer.Stop();
-	//chm.time.Stop();
 	engine->End();
 
 	return 0;

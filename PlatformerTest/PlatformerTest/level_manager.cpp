@@ -209,8 +209,7 @@ void level_manager::create_rooms() {
 	for (unsigned short i = 0; i < this->cm->get_doors_count(); i++) {
 		if (ltm->get_textures().get_name(this->cm->get_door_conf(i)->entity->GetSurface()).find(exit_door_keyword) != string::npos)
 			this->cm->get_door_conf(i)->ID =	exit_door_id--;
-		//if (this->cm->get_door_conf(i)->paired) 
-			tmp_door_set.push_back(this->cm->get_door_conf(i));
+		tmp_door_set.push_back(this->cm->get_door_conf(i));
 	}
 	
 	// Creating rooms

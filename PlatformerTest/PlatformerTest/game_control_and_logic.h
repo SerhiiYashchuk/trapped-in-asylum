@@ -220,9 +220,7 @@ namespace game_logic {
 			chinfo &char_info =				chm.get_info(i);
 
 			if (char_info._char->get_state() == on_stairs) continue;
-			//if (!char_info.current_floor)
-			//	check_floor_collision(lm, char_info, df);
-			//else
+
 			check_movement(lm, chm, char_info);
 		}
 
@@ -275,7 +273,6 @@ namespace game_logic {
 	// Collision with level floor
 
 	void check_floor_collision(level_manager &lm, chinfo &char_info, float df) {
-		//char_info._char->set_state(fall);
 
 		for (unsigned short i = 0; i < lm.get_rooms_count(); i++) {
 			room *current_room =									&lm.get_room(i);
@@ -312,15 +309,7 @@ namespace game_logic {
 	// Movement
 
 	void check_movement(level_manager &lm, chmanager &chm, chinfo &char_info) {
-		// Checking if left the current floor
-		/*
-		if (!CIndieLib::Instance()->Entity2dManager->IsCollision(&char_info._char->get_entity(), "feet", char_info.current_floor->entity, "*")) {
-		char_info.current_room =			0;
-		char_info.current_floor =			0;
-		char_info._char->set_state(fall);
 
-		} else {
-		*/
 		// Checking wall collision
 		if (char_info.direction.x)
 			for (unsigned short i = 0; i < lm.get_room(char_info.current_room - 1).walls.size(); i++) {
@@ -348,24 +337,12 @@ namespace game_logic {
 
 		// Go to another possible floor
 		if (char_info.possible_floor) {
-			/*
-			if ((char_info.possible_floor->get_coord_quarter() == 1 || char_info.possible_floor->get_coord_quarter() == 3) &&
-			direction_v.x == -1 || !char_info.possible_floor->entity->GetAngleZ())
-			char_info.current_floor =	char_info.possible_floor;
-
-			if ((char_info.possible_floor->get_coord_quarter() == 2 || char_info.possible_floor->get_coord_quarter() == 4) &&
-			direction_v.x == 1 || !char_info.possible_floor->entity->GetAngleZ())
-			char_info.current_floor =	char_info.possible_floor;
-			*/
 
 			if (char_info.current_floor->entity->GetPosY() > char_info.possible_floor->entity->GetPosY()) {
 				char_info.current_floor =							char_info.possible_floor;
 				char_info.possible_floor =							0;
 			}
 		}
-		//}
-
-		//char_info._char->set_state(stay);
 	}
 
 	// Main hero movement
@@ -450,7 +427,7 @@ namespace game_logic {
 	void go_through_door(level_manager &lm, chinfo &char_info, float df) {
 		static door_conf *current_door =							0;
 		static vector2d distance;
-		static vector2d speed;// =										vector2d((float) char_info._char->get_speed(), (float) char_info._char->get_speed());
+		static vector2d speed;
 		static vector2d direction;
 		static unsigned char trys =									0;
 
@@ -550,8 +527,7 @@ namespace game_logic {
 					break;
 				}
 		}
-		float pos_x =												char_info.current_floor->entity->GetPosX();// + CIndieLib::Instance()->Math->Rand(- char_info.current_floor->entity->GetSurface()->GetWidth() / 2,
-		//char_info.current_floor->entity->GetSurface()->GetWidth() / 2);
+		float pos_x =												char_info.current_floor->entity->GetPosX();
 		int height = 0;
 		if (char_info._char->get_entity().GetAnimation())
 			height = char_info._char->get_entity().GetAnimation()->GetSurface(1)->GetHeight();
@@ -666,7 +642,6 @@ namespace game_logic {
 			if (mob_info.direction.x < 0) Mob.get_entity().SetMirrorX							(true);
 			Mob.get_entity().SetHotSpot(0.5f,0.5f);
 			Mob.scare(hero);
-			//hero.change_fear(Mob.get_scare_speed() * 400 / abs(mob_info._char->get_position().x - hero_info._char->get_position().x));
 
 			if ((int) mob_info._char->get_position().x == (int) hero_info._char->get_position().x) break;
 

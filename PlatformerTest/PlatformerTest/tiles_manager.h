@@ -60,9 +60,6 @@ public:
 	texture_set &get_textures() {return *this->textures;};											// Returns texture set
 
 	tile_set &get_tiles(unsigned short num) {return *this->tiles[num];};
-	//tile_set &get_background() {return *this->background;};											// Returns set of entities for ground layer
-	//tile_set &get_objects() {return *this->objects;};												// Returns set of entities for terrain layer
-	//tile_set &get_items() {return *this->items;};
 };
 
 #endif
