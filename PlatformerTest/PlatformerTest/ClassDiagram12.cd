@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TiXmlParsingData" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAQABAAEAAAAAAAAAAEEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tinyxml\tinyxmlparser.cpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="character">
+    <Position X="6.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACIBFAQAAAAAKiAAAAAIAAAAAAgAYAEAgEoAAoAAAA=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="main_hero">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gYQBAAAAAAAgAACCSAACGgEQQQgAABEIAQACAACcSGA=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="npc">
+    <Position X="5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAEAAABAAAAAAAAAAAAAgASAAAAABAQAAAIAAA=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mob">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAACAAAgAAAAAAIBAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="chmanager" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAFAgAAAGAAACAiAAAAAAgAQACAAAAYxQAAQAEAAEA=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CIndieLib" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACIgBAAAAIAAAAAAACACAAAAUAAAAAAAQRYyCAAAAAA=</HashCode>
+      <FileName>CIndieLib_vc2008.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Message_Box" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAABEAAgAAAAQAAAQAAAEAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProgressBar" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAIAAAEgAABIAAARDAAAAEAiAIAAAAQAAAAAg=</HashCode>
+      <FileName>interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="info" Collapsed="true">
+    <Position X="12" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABCQEAgAAAABAAAAAAAAAAACAAAIQBAQAAIAAAA=</HashCode>
+      <FileName>interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="main_page" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAADBoAAABBKAAAAAAAAAAQEAAAEAAAAICAAAIA=</HashCode>
+      <FileName>interface.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="level_manager" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="level_manager::marked_floor">
+        <TypeIdentifier>
+          <NewMemberFileName>level_manager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IACIAABhQAAEEgQABAoABACAAKUAAEoABAABACQAIDQ=</HashCode>
+      <FileName>level_manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="conf_manager" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="conf_manager::tmp_conf">
+        <TypeIdentifier>
+          <NewMemberFileName>objects_configuration.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAQAAAAAMCAAAAAAAAQAAAAAQAAAAEAAABAgBAEAAA=</HashCode>
+      <FileName>objects_configuration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="sSound" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACBAAAAAABAEAACgAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Sound.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="level_floor" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAIAAAAAAAAEAAIAAAACAAA=</HashCode>
+      <FileName>sup_structs_and_classes.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="skill" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAABAFAACAAAAAAAAAAAQIAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>sup_structs_and_classes.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="item">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAQAAAAAAAAAAQAAAAAAAAEAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>sup_structs_and_classes.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="lt_manager" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEBBAAAAAMCAAAAAAAAABAAAAgAEAAAAAACAAgAAAAA=</HashCode>
+      <FileName>tiles_manager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="texture_set" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABCAgAAIACAAAAAIQAAAAAAAgEAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>tiles.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="tile_set" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAJAAEAAAAAABAIAABAAAAACAgAAAAAAARIAAAAI=</HashCode>
+      <FileName>tiles.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlVisitor" Collapsed="true">
+    <Position X="8.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAgAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlBase" Collapsed="true">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAgggBQAEAgEAAAQAgBhABASADAQAiAIAAAiAAAkAAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlNode" Collapsed="true">
+    <Position X="6.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAgAAAIAEAEiiBAhEAAYQAEAAqBgCECAYtgAAtAIDA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlAttribute" Collapsed="true">
+    <Position X="12.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQggAAAgAAQggAEAABAAQQAAAIEAGQAAABgQAIEEAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlAttributeSet" Collapsed="true">
+    <Position X="20.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAQAAQAAABAAAAAAJAAAAACAiQAAAAAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlElement" Collapsed="true">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAACACQAAJAAAAIIEAgQSAAA0BCBAgAAAEIFE=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlComment" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAIAAAAAAAAAAAAAAAQAAAAAAAAEIAAAgAAAEIBA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlText" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAgAAAABAAAAAAAAEAAAABAAAABgAEAAAAgAAAEIBQ=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlDeclaration" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAgACCAAAQAAAAAAAAAAAAAgAAAAIEAAAIoAAAEKBA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlUnknown" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAAEAAAAAAAAAAAAACAAAAAAEAAAAgAIAEIBA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlDocument" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAABBAQAQABAgEICAAAAAEQBAEBFAAgAEgUJBA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlHandle" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAEAAAIAAAEgAIAABAAAAAAAAAIEoCAEAABA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TiXmlPrinter" Collapsed="true">
+    <Position X="8" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAEABEhAQgBAAQAAAAMAAAAAAAAABQIBQAwAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="game_logic::spawn_error" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>game_control_and_logic.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="game_logic::load_error" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>game_control_and_logic.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="chinfo" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAIAAAAAAAACAAIIAAAAAAAgAAAIAAAAE=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="room" Collapsed="true">
+    <Position X="22.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAIAAAQAAAAAAEAAIAAAAAAAAA=</HashCode>
+      <FileName>level_manager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="door_conf">
+    <Position X="15.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAgAAAAAAAAAAAAAAAAAAACAAAAAAAEAA=</HashCode>
+      <FileName>objects_configuration.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="vector2d">
+    <Position X="17.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>sup_structs_and_classes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="level_door">
+    <Position X="16.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAgAAAACAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>sup_structs_and_classes.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="tile_info" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAACAAAAAAAACAAAACAABAAgAAAAAAAABAAAA=</HashCode>
+      <FileName>tiles_manager.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="TiXmlCursor" Collapsed="true">
+    <Position X="21" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQACAAAAAAAAAAAABABAAAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="Direction" Collapsed="true">
+    <Position X="20.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>characters.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="__unnamed_enum_0016_1" Collapsed="true">
+    <Position X="24.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TiXmlEncoding" Collapsed="true">
+    <Position X="24" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAABAAAAAAAABAAAA=</HashCode>
+      <FileName>tinyxml\tinyxml.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="game_control::game_state" Collapsed="true">
+    <Position X="22.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAABABAAAAAQAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>game_control_and_logic.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="game_logic::spawn_type" Collapsed="true">
+    <Position X="24" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAEAAQAAAAAAAA=</HashCode>
+      <FileName>game_control_and_logic.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

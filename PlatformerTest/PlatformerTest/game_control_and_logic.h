@@ -7,7 +7,7 @@
 #include "interface.h"
 
 namespace game_control {
-	enum game_state {show_menu, play_game, change_level, quit};
+	enum game_state {show_menu, play_game, change_level, quit, pause_game, _game_over};
 
 	game_state gstate =										show_menu;
 	unsigned char current_level =							0;
@@ -23,6 +23,7 @@ namespace game_control {
 	void update_ingame_interface(int tl_x, int tl_y, main_hero &hero, info &hero_info);
 	void update_ingame_interface(int tl_x, int tl_y, ProgressBar progressBar);
 	void main_page_interface(main_page &MainPage);
+	void pause_screen (pause &Pause);
 
 	void play(level_manager &lm, chmanager &chm, IND_Camera2d &camera);
 	void complete_level(level_manager &lm);
@@ -183,10 +184,26 @@ namespace game_control {
 			
 	}
 
+	void pause_screen (pause &Pause) {
+		if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYUP))
+			Pause.SetActivePlay();
+
+		if (CIndieLib::Instance()->Input->OnKeyPress(IND_KEYDOWN))
+			Pause.SetActiveQuit();
+
+		if (Pause.PlayActive() && CIndieLib::Instance()->Input->OnKeyPress(IND_RETURN)){
+			gstate =													play_game;
+			Pause.Show(false);
+		}
+
+		if (!Pause.PlayActive() && CIndieLib::Instance()->Input->OnKeyPress(IND_RETURN))
+			gstate =													quit;
+	}
+
 	//-------------------Game over--------------------
 
 	void game_over() {
-		gstate =														quit;
+		gstate =														_game_over;
 		current_level--;
 	}
 }

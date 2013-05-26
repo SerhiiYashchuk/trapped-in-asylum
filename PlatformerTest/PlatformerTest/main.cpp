@@ -172,7 +172,22 @@ int IndieLib() {
 
 	//-------------------------------------------------
 	//gstate = show_menu;
-	while (!engine->Input->Quit() && !engine->Input->OnKeyPress(IND_ESCAPE)) {
+	//------------------Pause-------------------------
+	pause Pause;
+
+	if (!Pause.load()) return 3;
+
+	Pause.SetPlayPosition(-100,-100);
+	Pause.SetQuitPosition(-100,-50);
+	Pause.SetmainPosition(0,0);
+	Pause.Show(false);
+	//------------------------------------------------
+	//-------------------Game over-------------------
+	Game_over Game_Over;
+	IND_Timer timer;
+	if (!Game_Over.load()) return 3;
+	//-----------------------------------------------
+	while (!engine->Input->Quit()) {
 
 		ticks =								r_timer.GetTicks();
 
@@ -188,6 +203,13 @@ int IndieLib() {
 			break;
 
 		case play_game:
+			Game_Over.Show(false);
+			Pause.Show(false);
+			if (CIndieLib::Instance()->Input->OnKeyPress(IND_ESCAPE)){
+				gstate = pause_game;
+				pandoraMusic.stop();
+			}
+
 			play(lm, chm, camera);
 			fear_bar.SetPosition((float) (camera.GetPosX() +40 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +10 - engine->Window->GetHeight() / 2));
 			fear_bar.Show(true);
@@ -207,7 +229,27 @@ int IndieLib() {
 				lm.get_tl_point(), lm.get_br_point(), engine->Window->GetWidth(), engine->Window->GetHeight());
 			gstate =						play_game;
 			break;
+		case pause_game:
+			Pause.Show(true);
+			Pause.SetPlayPosition((float) (camera.GetPosX() +400 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +400 - engine->Window->GetHeight() / 2));
+			Pause.SetQuitPosition((float) (camera.GetPosX() +400 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +450 - engine->Window->GetHeight() / 2));
+			Pause.SetmainPosition ((float)camera.GetPosX(),(float)camera.GetPosY());
+			fear_bar.Show(false);
+			scream_bar.Show(false);
+			pause_screen(Pause);
+			if (gstate == play_game)
+				pandoraMusic.play();
+			break;
+		case _game_over:
+			fear_bar.Show(false);
+			scream_bar.Show(false);
+			Game_Over.Show(true);
+			Game_Over.SetPlayPosition((float) (camera.GetPosX() +400 - engine->Window->GetWidth() / 2), (float) (camera.GetPosY() +200 - engine->Window->GetHeight() / 2));
+			Game_Over.SetmainPosition((float)camera.GetPosX(),(float)camera.GetPosY());
 
+			if (engine->Input->OnKeyPress(IND_RETURN)) gstate = change_level;
+
+			break;
 		case quit:
 			engine->End();
 			return 0;
@@ -225,7 +267,7 @@ int IndieLib() {
 		//if (ticks > last_frame + 1000 / FPS) {
 			engine->Render->BeginScene();
 
-			if (gstate == play_game) {
+			if (gstate == play_game || gstate == pause_game || gstate == _game_over) {
 			engine->Entity2dManager->RenderEntities2d(background_layer);
 			engine->Entity2dManager->RenderEntities2d(objects_layer);
 			engine->Entity2dManager->RenderEntities2d(items_layer);

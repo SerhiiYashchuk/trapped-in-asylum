@@ -78,6 +78,7 @@ public:
 //---------------------------Main_Page---------------------------
 
 class main_page {
+protected:
 	IND_Surface eyesSurface;
 	IND_Entity2d eyesEntity;
 
@@ -92,14 +93,32 @@ class main_page {
 
 	bool active;
 public:
-	unsigned int load();
-	void SetEyesPosition(float x, float y);
-	void SetPlayPosition(float x, float y);
-	void SetQuitPosition(float x, float y);
+	virtual unsigned int load();
+	virtual void SetEyesPosition(float x, float y);
+	virtual void SetPlayPosition(float x, float y);
+	virtual void SetQuitPosition(float x, float y);
+	virtual void SetActivePlay ();
+	virtual void SetActiveQuit ();
+	virtual bool PlayActive ();
+	void Show (bool flag);
+};
+
+class pause : public main_page {
+public:
+	unsigned int load ();
+	void SetPlayPosition (float x, float y);
+	void SetQuitPosition (float x, float y);
 	void SetActivePlay ();
 	void SetActiveQuit ();
 	bool PlayActive ();
-	void Show (bool flag);
+	void SetmainPosition (float x, float y);
+};
+
+class Game_over : public main_page {
+public:
+	unsigned int load ();
+	void SetPlayPosition (float x, float y);
+	void SetmainPosition (float x, float y);
 };
 
 #endif

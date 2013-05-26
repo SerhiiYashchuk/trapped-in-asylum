@@ -277,3 +277,123 @@ void main_page::Show (bool flag) {
 	this->playEntity.SetShow(flag);
 	this->quitEntity.SetShow(flag);
 }
+
+//--------------------------pause--------------------------------
+
+unsigned int pause::load () {
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->main_pageSurface,"..\\res\\pause\\main.png", IND_ALPHA, IND_32))	return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\pause\\aresume.png", IND_ALPHA, IND_32))	return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\pause\\nquit.png", IND_ALPHA, IND_32))	return 0;
+
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->main_pageEntity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->playEntity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->quitEntity);
+
+	this	->	main_pageEntity	.	SetSurface (&this->main_pageSurface);
+	this	->	playEntity		.	SetSurface (&this->playSurface);
+	this	->	quitEntity		.	SetSurface (&this->quitSurface);
+
+	this	->	main_pageEntity	.	SetHotSpot (0.5f,0.5f);
+	this	->	playEntity		.	SetHotSpot (0.5f,0.5f);
+	this	->	quitEntity		.	SetHotSpot (0.5f,0.5f);
+	this	->	main_pageEntity .	SetPosition(0,0,interface_layer);
+
+	this->active = true;
+	return 1;
+}
+
+void pause::SetPlayPosition (float x, float y) {
+	this->playEntity.SetPosition(x, y, interface_layer);
+} 
+void pause::SetQuitPosition (float x, float y) {
+	this->quitEntity.SetPosition (x, y, interface_layer);
+}
+void pause::SetActivePlay () {
+	float x, y;
+
+	x = this->playEntity.GetPosX();
+	y = this->playEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->playSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\pause\\aresume.png", IND_ALPHA, IND_32)) return;
+	this->playEntity.SetSurface(&this->playSurface);
+
+	this->playEntity.SetHotSpot(0.5f,0.5f);
+
+	this->playEntity.SetPosition(x, y, interface_layer);
+
+	x = this->quitEntity.GetPosX();
+	y = this->quitEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->quitSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\pause\\nquit.png", IND_ALPHA, IND_32)) return;
+	this->quitEntity.SetSurface(&this->quitSurface);
+
+	this->quitEntity.SetHotSpot(0.5f,0.5f);
+
+	this->quitEntity.SetPosition(x, y, interface_layer);	
+	
+	this->active = true;
+}
+void pause::SetActiveQuit () {
+	float x, y;
+
+	x = this->playEntity.GetPosX();
+	y = this->playEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->playSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\pause\\nresume.png", IND_ALPHA, IND_32)) return;
+	this->playEntity.SetSurface(&this->playSurface);
+
+	this->playEntity.SetHotSpot(0.5f,0.5f);
+
+	this->playEntity.SetPosition(x, y, interface_layer);
+
+	x = this->quitEntity.GetPosX();
+	y = this->quitEntity.GetPosY();
+
+	CIndieLib::Instance()->SurfaceManager->Delete(&this->quitSurface);
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->quitSurface, "..\\res\\pause\\aquit.png", IND_ALPHA, IND_32)) return;
+	this->quitEntity.SetSurface(&this->quitSurface);
+
+	this->quitEntity.SetHotSpot(0.5f,0.5f);
+
+	this->quitEntity.SetPosition(x, y, interface_layer);
+
+	this->active = false;
+}
+bool pause::PlayActive () {
+	return active;
+}
+void pause::SetmainPosition (float x, float y) {
+	this	->	main_pageEntity	.	SetHotSpot (0.5f,0.5f);
+	this->main_pageEntity.SetPosition (x, y, interface_layer);
+}
+
+//-------------------------------game_over----------------------
+
+unsigned int Game_over::load () {
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->main_pageSurface,"..\\res\\pause\\main.png", IND_ALPHA, IND_32))	return 0;
+	if (!CIndieLib::Instance()->SurfaceManager->Add(&this->playSurface, "..\\res\\game_over\\agame_over.png", IND_ALPHA, IND_32))	return 0;
+	
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->main_pageEntity);
+	CIndieLib::Instance()->Entity2dManager->Add(interface_layer,&this->playEntity);
+
+	this	->	main_pageEntity	.	SetSurface (&this->main_pageSurface);
+	this	->	playEntity		.	SetSurface (&this->playSurface);
+
+	
+	this	->	main_pageEntity	.	SetHotSpot (0.5f,0.5f);
+	this	->	playEntity		.	SetHotSpot (0.5f,0.5f);
+
+	return 1;
+}
+
+void Game_over::SetmainPosition (float x, float y) {
+	this	->	main_pageEntity	.	SetHotSpot (0.5f,0.5f);
+	this->main_pageEntity.SetPosition (x, y, interface_layer);
+}
+
+void Game_over::SetPlayPosition (float x, float y) {
+	this->playEntity.SetPosition(x, y, interface_layer);
+}
