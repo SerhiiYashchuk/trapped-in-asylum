@@ -165,7 +165,10 @@ public:
 			this->time.Start();
 			CIndieLib::Instance()->AnimationManager->AddToSurface(&this->aMove, "..\\res\\animations\\mob\\move\\Move.xml", IND_ALPHA, IND_32);
 	};
-
+	~mob() {
+		if (CIndieLib::Instance()->AnimationManager->IsOk())
+			CIndieLib::Instance()->AnimationManager->Delete(&this->aMove);
+	}
 	void set_scare(float fear_per_second) {this->_scare = fear_per_second;};
 	float get_scare() {return this->_scare;};
 	void set_animation();
